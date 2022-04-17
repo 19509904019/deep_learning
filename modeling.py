@@ -41,7 +41,7 @@ modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("ts","%f)' % t
 modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("tm","%f)' % tm)
 # 建模基本参数设置结束
 
-#换行符，后面用于VBA代码的拼接用
+# 换行符，后面用于VBA代码的拼接用
 line_break = '\n'
 # 全局单位初始化
 sCommand = ['With Units',
