@@ -218,3 +218,5 @@ def create_brick(str_name, str_component, str_material, x1, x2, y1, y2, z1, z2):
                 'End With']
     sCommand = line_break.join(sCommand)
     return sCommand
+
+
