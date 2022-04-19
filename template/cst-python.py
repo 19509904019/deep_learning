@@ -13,7 +13,7 @@ from os.path import dirname, abspath
 
 # 设置环境变量
 # os.environ['CST_INSTALLPATH_2020'] = r'E:\Program Files (x86)\CST Studio Suite 2020'   -> if path is NOT default..
-sys.path.append("D:\installation\CST2020\AMD64\python_cst_libraries")
+# sys.path.append("D:\installation\CST2020\AMD64\python_cst_libraries")
 
 # Import cst modules
 # cst.interface - Allows controlling a running CST Studio Suite.
@@ -23,7 +23,7 @@ import cst.results
 import cst
 import cst.interface
 
-print(cst.__file__)  # should print '<PATH_TO_CST_AMD64>\python_cst_libraries\cst\__init__.py
+# print(cst.__file__)  # should print '<PATH_TO_CST_AMD64>\python_cst_libraries\cst\__init__.py
 
 CstFileName = input("请输入cst文件名(勿带cst后缀)：")
 ProjectName = CstFileName + '.cst'
@@ -282,4 +282,3 @@ for i in range(len(Frequency_list)):
     # 保存cst文件
 print('导出完成')
 MyCurrentProject.save()
-

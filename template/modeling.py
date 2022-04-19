@@ -31,14 +31,14 @@ tm = 0.035  # 金属层厚
 Frq = [2, 2.7]  # 工作频率，单位：GHz
 
 # 在CST中加入结构参数，方便后续手动在CST文件中进行操作
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("a","%f)' % a)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("b","%f)' % b)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("w","%f)' % w)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("l","%f)' % l)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("lx","%f)' % lx)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("ly","%f)' % ly)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("ts","%f)' % ts)
-modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("tm","%f)' % tm)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("a","%f")' % a)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("b","%f")' % b)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("w","%f")' % w)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("l","%f")' % l)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("lx","%f")' % lx)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("ly","%f")' % ly)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("ts","%f")' % ts)
+modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("tm","%f")' % tm)
 # 建模基本参数设置结束
 
 # 换行符，后面用于VBA代码的拼接用
