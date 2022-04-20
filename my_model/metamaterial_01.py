@@ -1,6 +1,5 @@
 import os
 import cst.interface
-import cst.results
 import numpy as np
 from function import func
 
