@@ -4,10 +4,10 @@ import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
 import matplotlib.pyplot as plt
-from dataset.mnist import load_mnist
-from common.multi_layer_net import MultiLayerNet
-from common.util import shuffle_dataset
-from common.trainer import Trainer
+from example.dataset.mnist import load_mnist
+from example.common.multi_layer_net import MultiLayerNet
+from example.common.util import shuffle_dataset
+from example.common.trainer import Trainer
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True)
 

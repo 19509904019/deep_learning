@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from simple_convnet import SimpleConvNet
 from matplotlib.image import imread
-from common.layers import Convolution
+from example.common.layers import Convolution
 
 def filter_show(filters, nx=4, show_num=16):
     """

@@ -2,8 +2,8 @@
 import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
-from dataset.mnist import load_mnist
-from common.multi_layer_net_extend import MultiLayerNetExtend
+from example.dataset.mnist import load_mnist
+from example.common.multi_layer_net_extend import MultiLayerNetExtend
 
 # 读入数据
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
