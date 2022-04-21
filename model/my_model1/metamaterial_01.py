@@ -93,6 +93,7 @@ modeler.add_to_history('create brick2', ring_2)
 # 合并
 modeler.add_to_history('add ring1 and ring2', 'Solid.Add "component:ring1", "component:ring2"')
 
+
 # 仿真开始
 modeler.run_solver()
 

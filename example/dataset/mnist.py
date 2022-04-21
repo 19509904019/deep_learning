@@ -18,7 +18,9 @@ key_file = {
 }
 
 dataset_dir = os.path.dirname(os.path.abspath(__file__))
+# print(dataset_dir)
 save_file = dataset_dir + "/mnist.pkl"
+# print(save_file)
 
 train_num = 60000
 test_num = 10000
@@ -94,15 +96,15 @@ def _change_one_hot_label(X):
 
 def load_mnist(normalize=True, flatten=True, one_hot_label=False):
     """读入MNIST数据集
-    
+
     Parameters
     ----------
     normalize : 将图像的像素值正规化为0.0~1.0
-    one_hot_label : 
+    one_hot_label :
         one_hot_label为True的情况下，标签作为one-hot数组返回
         one-hot数组是指[0,0,1,0,0,0,0,0,0,0]这样的数组
     flatten : 是否将图像展开为一维数组
-    
+
     Returns
     -------
     (训练图像, 训练标签), (测试图像, 测试标签)

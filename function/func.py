@@ -220,3 +220,43 @@ def create_brick(str_name, str_component, str_material, x1, x2, y1, y2, z1, z2):
     return sCommand
 
 
+def create_Lossymetal(name, ohm):
+    sCommand = ['With Material',
+                '.Reset',
+                '.Name "%s"' % name,
+                '.Folder ""',
+                '.Rho "0.0"',
+                '.ThermalType "Normal"',
+                '.ThermalConductivity "0"',
+                '.SpecificHeat "0", "J/K/kg"',
+                '.DynamicViscosity "0"',
+                '.Emissivity "0"',
+                '.MetabolicRate "0.0"',
+                '.VoxelConvection "0.0"',
+                '.BloodFlow "0"',
+                '.MechanicsType "Unused"',
+                '.FrqType "all"',
+                '.Type "Lossy metal"',
+                '.MaterialUnit "Frequency", "GHz"',
+                '.MaterialUnit "Geometry", "mm"',
+                '.MaterialUnit "Time", "ns"',
+                '.MaterialUnit "Temperature", "Kelvin"',
+                '.OhmicSheetImpedance "%f", "0"' % ohm,
+                '.OhmicSheetFreq "0"',
+                '.ReferenceCoordSystem "Global"',
+                '.CoordSystemType "Cartesian"',
+                '.NLAnisotropy "False"',
+                '.NLAStackingFactor "1"',
+                '.NLADirectionX "1"',
+                '.NLADirectionY "0"',
+                '.NLADirectionZ "0"',
+                '.Colour "1", "1", "0"',
+                '.Wireframe "False"',
+                '.Reflection "False"',
+                '.Allowoutline "True"',
+                '.Transparentoutline "False"',
+                '.Transparency "0"',
+                '.Create',
+                'End With']
+    sCommand = line_break.join(sCommand)
+    return sCommand
