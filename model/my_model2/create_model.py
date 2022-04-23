@@ -141,13 +141,13 @@ modeler.add_to_history('define ring1_1', ring1_1)
 modeler.add_to_history('Subtract:ring1-ring1_1', 'Solid.Subtract "component1:ring1", "component1:ring1_1"')
 
 # 合并
-modeler.add_to_history('insert:bottom,ring3', 'Solid.Insert "component1:bottom", "component1:ring3"')
-modeler.add_to_history('insert:middle,ring2', 'Solid.Insert "component1:middle", "component1:ring2"')
-modeler.add_to_history('insert:top,ring1', 'Solid.Insert "component1:top", "component1:ring1"')
+modeler.add_to_history('insert:bottom,ring3', 'Solid.Insert "component1:bottom_layer", "component1:ring3"')
+modeler.add_to_history('insert:middle,ring2', 'Solid.Insert "component1:middle_layer", "component1:ring2"')
+modeler.add_to_history('insert:top,ring1', 'Solid.Insert "component1:top_layer", "component1:ring1"')
 
 
 # 仿真开始
-modeler.run_solver()
+# modeler.run_solver()
 
 # 保存
 mws.save(fullname)
