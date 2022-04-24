@@ -17,30 +17,15 @@ mws.save(fullname)
 modeler = mws.modeler
 
 # 模型基本参数
-p = 8
-x11 = 1
-x12 = 1
-x13 = 1
-x21 = 1
-x22 = 1
-x23 = 1
-x31 = 1
-x32 = 1
-x33 = 1
-y11 = 1
-y12 = 1
-y13 = 1
-y21 = 1
-y22 = 1
-y23 = 1
-y31 = 1
-y32 = 1
-y33 = 1
-
+p = 3
+l = 0
+h = 1
 # 在CST中添加模型基本参数
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("theta","0")')
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("phi","0")')
 modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("p","{p}")')
+modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("l","{l}")')
+modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("h","{h}")')
 
 line_break = '\n'
 # 全局单位初始化
@@ -62,7 +47,7 @@ modeler.add_to_history('define units', sCommand)
 
 
 # 设置工作频率
-frq1 = 0
+frq1 = 2
 frq2 = 18
 sCommand = 'Solver.FrequencyRange "%f", "%f"' % (frq1, frq2)
 modeler.add_to_history('define frequency range', sCommand)
@@ -161,29 +146,52 @@ sCommand = ['With Brick',
             '.Name "%s"' % 'solid1',
             '.Component "%s"' % 'component1',
             '.Material "%s"' % 'Vacuum',
-            f'.Xrange "0", "3"',
-            f'.Yrange "0", "3"',
-            f'.Zrange "0", "1"',
+            f'.Xrange "0", "p"',
+            f'.Yrange "0", "p"',
+            f'.Zrange "0", "h"',
             '.Create',
             'End With']
 sCommand = line_break.join(sCommand)
 modeler.add_to_history('define brick', sCommand)
 
-# 金属层
-arr = get_0_1_array(np.eye(3), rate=0.3)
+# # 金属层
+# arr = get_0_1_array(np.eye(3), rate=0.3)
+#
+# for i in arr:
+#     for j in i:
+#         if j == 1:
+#             sCommand = ['With Brick',
+#                         '.Reset',
+#                         '.Name "metal %s"' % [i for i in range(1000)],
+#                         '.Component "%s"' % 'component1',
+#                         '.Material "PEC"',
+#                         '.Xrange "-a/2","a/2"',
+#                         '.Yrange "-b/2","b/2"',
+#                         '.Zrange "0","tm"',
+#                         '.Create',
+#                         'End With']
+#             sCommand = line_break.join(sCommand)
+#             modeler.add_to_history('define brick', sCommand)
 
-for i in arr:
-    for j in i:
-        if j == 1:
-            sCommand = ['With Brick',
-                        '.Reset',
-                        '.Name "metal %s"' % [i for i in range(1000)],
-                        '.Component "%s"' % 'component1',
-                        '.Material "PEC"',
-                        '.Xrange "-a/2","a/2"',
-                        '.Yrange "-b/2","b/2"',
-                        '.Zrange "0","tm"',
-                        '.Create',
-                        'End With']
-            sCommand = line_break.join(sCommand)
-            modeler.add_to_history('define brick', sCommand)
+
+for x in range(3):
+    for y in range(3):
+        sCommand = ['With Brick',
+                    '.Reset',
+                    '.Name "metal_%.0f_%.0f"' % (x+1, y+1),
+                    '.Component "component1"',
+                    '.Material "PEC"',
+                    '.Xrange "l+%d","l+%d"' % (x, y),
+                    '.Yrange "l+%d","l+%d"' % (x, y),
+                    '.Zrange "0","0.1"',
+                    '.Create',
+                    'End With']
+        sCommand = line_break.join(sCommand)
+        modeler.add_to_history('define brick', sCommand)
+
+# # 仿真开始
+# modeler.run_solver()
+# # 仿真结束
+
+# 保存
+mws.save(fullname)
