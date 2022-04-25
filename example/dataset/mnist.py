@@ -9,26 +9,37 @@ import pickle
 import os
 import numpy as np
 
+# 下载数据集链接
 url_base = 'https://yann.lecun.com/exdb/mnist/'
+# 保存数据集信息
 key_file = {
     'train_img': 'train-images-idx3-ubyte.gz',
     'train_label': 'train-labels-idx1-ubyte.gz',
     'test_img': 't10k-images-idx3-ubyte.gz',
     'test_label': 't10k-labels-idx1-ubyte.gz'
 }
-
+# 当前文件所在绝对路径
 dataset_dir = os.path.dirname(os.path.abspath(__file__))
 # print(dataset_dir)
 save_file = dataset_dir + "/mnist.pkl"
 # print(save_file)
 
+# 训练数据量
 train_num = 60000
+# 测试数据量
 test_num = 10000
+# 图片维度
 img_dim = (1, 28, 28)
+# 图片大小
 img_size = 784
 
 
 def _download(file_name):
+    """
+    数据集下载
+    :param file_name: 数据集名称
+    :return:
+    """
     file_path = dataset_dir + "/" + file_name
 
     if os.path.exists(file_path):
@@ -39,6 +50,7 @@ def _download(file_name):
     print("Done")
 
 
+# 下载mnist
 def download_mnist():
     for v in key_file.values():
         _download(v)
@@ -61,12 +73,13 @@ def _load_img(file_name):
     print("Converting " + file_name + " to NumPy Array ...")
     with gzip.open(file_path, 'rb') as f:
         data = np.frombuffer(f.read(), np.uint8, offset=16)
-    data = data.reshape(-1, img_size)
+    data = data.reshape(-1, img_size)  # 将列表变成数组,平铺
     print("Done")
 
     return data
 
 
+# 图片转换为数组，用字典保存
 def _convert_numpy():
     dataset = {}
     dataset['train_img'] = _load_img(key_file['train_img'])
@@ -77,6 +90,7 @@ def _convert_numpy():
     return dataset
 
 
+# 完成数据集的收集
 def init_mnist():
     download_mnist()
     dataset = _convert_numpy()
@@ -111,7 +125,7 @@ def load_mnist(normalize=True, flatten=True, one_hot_label=False):
     """
     if not os.path.exists(save_file):
         init_mnist()
-
+    # 打开数据集并加载
     with open(save_file, 'rb') as f:
         dataset = pickle.load(f)
 
