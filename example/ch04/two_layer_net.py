@@ -23,7 +23,7 @@ class TwoLayerNet:
         z1 = sigmoid(a1)
         a2 = np.dot(z1, W2) + b2
         y = softmax(a2)
-        
+
         return y
         
     # x:输入数据, t:监督数据

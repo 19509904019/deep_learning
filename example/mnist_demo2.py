@@ -14,12 +14,12 @@ def img_show(img):
 
 
 (x_train, t_train), (x_test, t_test) = load_mnist(flatten=True, normalize=False)
-img = x_train[1]  # 学习数据存放在一维数组里
-label = t_train[1]  # 记录学习的数字
+img = x_train[0]  # 第一张图片数据信息
+label = t_train[0]  # 第一张图片数据标签
 print(label)
 
-print(img.shape)  # 此时为一维数组，784个元素构成一维数组
-img = img.reshape(28, 28)  # 变为原来的28像素*28像素的形状，reshape()方法
+print(img.shape)  # 第一张图片一维数组信息
+img = img.reshape(28, 28)  # 变为原来的28像素*28像素的形状表示原始信息，reshape()方法
 print(img.shape)
 
-img_show(img)
+img_show(img)  # 将数组转为图片

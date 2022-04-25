@@ -30,7 +30,7 @@ for i in range(iters_num):
     # 梯度
     #grad = network.numerical_gradient(x_batch, t_batch)
     grad = network.gradient(x_batch, t_batch)
-    
+
     # 更新
     for key in ('W1', 'b1', 'W2', 'b2'):
         network.params[key] -= learning_rate * grad[key]
