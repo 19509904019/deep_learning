@@ -1,3 +1,4 @@
+import os
 # 换行符，用于VB代码拼接用
 line_break = '\n'
 
@@ -260,3 +261,5 @@ def create_Lossymetal(name, ohm):
                 'End With']
     sCommand = line_break.join(sCommand)
     return sCommand
+
+

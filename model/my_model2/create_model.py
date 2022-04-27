@@ -145,9 +145,21 @@ modeler.add_to_history('insert:bottom,ring3', 'Solid.Insert "component1:bottom_l
 modeler.add_to_history('insert:middle,ring2', 'Solid.Insert "component1:middle_layer", "component1:ring2"')
 modeler.add_to_history('insert:top,ring1', 'Solid.Insert "component1:top_layer", "component1:ring1"')
 
-
 # 仿真开始
-# modeler.run_solver()
+modeler.run_solver()
 
 # 保存
 mws.save(fullname)
+
+# dataname = 'example.txt'
+# sCommmd = ['With ASCIIExport',
+#            '.Reset',
+#            '.FileName "%s"' % dataname,
+#            '.Mode("FixedNumber")',
+#            '.StepX (12)',
+#            '.StepY (12)',
+#            '.StepZ (8)',
+#            '.Execute',
+#            'End With']
+# sCommmd = '\n'.join(sCommmd)
+# modeler.add_to_history('save data', sCommmd)
