@@ -5,7 +5,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torchvision.datasets import *
 from cifar10_network import *
 from torchvision.transforms import *
-
+import time
 # 准备数据集
 
 train_set = CIFAR10(
@@ -51,6 +51,7 @@ for i in range(epoch):
     # 训练步骤开始
     # 整个训练集的loss
     total_train_loss = 0
+    start = time.time()
     for data in train_dataloader:
         # 记录次数
         total_train_step += 1
@@ -66,6 +67,8 @@ for i in range(epoch):
 
         total_train_loss += loss.item()
         if total_train_step % 100 == 0:
+            end = time.time()
+            print(f'time:{end-start}')
             print(f'训练次数:{total_train_step},loss:{loss.item()}')
     print(f"整体训练集的Loss:{total_train_loss}")
     writer.add_scalar('train_loss', loss.item(), total_train_step)
