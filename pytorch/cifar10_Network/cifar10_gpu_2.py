@@ -1,9 +1,16 @@
+"""
+GPU加速：
+    网络模型
+    数据
+    损失函数
+
+"""
 import torch
+from torch import nn
 from torch import optim
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchvision.datasets import *
-from cifar10_network import *
 from torchvision.transforms import *
 
 # 准备数据集
@@ -26,11 +33,38 @@ test_set = CIFAR10(
 train_dataloader = DataLoader(train_set, batch_size=64)
 test_dataloader = DataLoader(test_set, batch_size=64)
 
+
+# 构建网络
+class MyModel(nn.Module):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.model1 = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(2),
+            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(2),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(2),
+            nn.Flatten(),
+            nn.Linear(1024, 64),
+            nn.Linear(64, 10)
+        )
+
+    def forward(self, x):
+        x = self.model1(x)
+        return x
+
+
 # 生成网络
 mymodel = MyModel()
+# GPU加速
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+mymodel = mymodel.to(device)
 
 # 损失函数
 loss_func = nn.CrossEntropyLoss()
+if torch.cuda.is_available():
+    loss_func = loss_func.to(device)
 
 # 优化器
 lr = 1e-2
@@ -54,8 +88,12 @@ for i in range(epoch):
     for data in train_dataloader:
         # 记录次数
         total_train_step += 1
-        # 获取数据
+        # 获取数据并加速
         imgs, targets = data
+        if torch.cuda.is_available():
+            imgs = imgs.to(device)
+            targets = targets.to(device)
+
         outputs = mymodel(imgs)
         loss = loss_func(outputs, targets)
 
@@ -78,6 +116,10 @@ for i in range(epoch):
     with torch.no_grad():
         for data in test_dataloader:
             imgs, targets = data
+            if torch.cuda.is_available():
+                imgs = imgs.to(device)
+                targets = targets.tp(device)
+
             outputs = mymodel(imgs)
             loss = loss_func(outputs, targets)
             total_test_loss += loss.item()  # 将所有的loss值相加
