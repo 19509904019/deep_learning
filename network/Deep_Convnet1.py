@@ -3,7 +3,6 @@ import sys
 
 sys.path.append(os.pardir)
 import pickle
-import numpy as np
 from example.common.layers import *
 
 

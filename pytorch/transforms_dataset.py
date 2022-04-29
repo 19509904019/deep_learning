@@ -30,14 +30,14 @@ transformer = Compose([
     ToTensor()
 ])
 
-train_set = torchvision.datasets.CIFAR10(root='CIFAR10', transform=transformer, train=True, download=True)
-test_set = torchvision.datasets.CIFAR10(root='CIFAR10', transform=transformer, train=False, download=True)
+train_set = torchvision.datasets.CIFAR10(root='./CIFAR10', transform=transformer, train=True, download=True)
+test_set = torchvision.datasets.CIFAR10(root='./CIFAR10', transform=transformer, train=False, download=True)
 
 # print(train_set[0])
 # print(train_set[0][0].shape)
 
-writer = SummaryWriter('../logs')
-for i in range(10):
-    img, target = train_set[i]
-    writer.add_image('train_set', img, i)
-writer.close()
+# writer = SummaryWriter('../logs')
+# for i in range(10):
+#     img, target = train_set[i]
+#     writer.add_image('train_set', img, i)
+# writer.close()
