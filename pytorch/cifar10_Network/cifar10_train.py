@@ -42,7 +42,7 @@ total_train_step = 0
 # 记录测试次数
 total_test_step = 0
 # 训练的轮数
-epoch = 10
+epoch = 100
 
 writer = SummaryWriter('../../logs')
 for i in range(epoch):
