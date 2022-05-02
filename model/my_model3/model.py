@@ -154,28 +154,12 @@ sCommand = ['With Brick',
 sCommand = line_break.join(sCommand)
 modeler.add_to_history('define brick', sCommand)
 
-# # 金属层
-# arr = get_0_1_array(np.eye(3), rate=0.3)
-#
-# for i in arr:
-#     for j in i:
-#         if j == 1:
-#             sCommand = ['With Brick',
-#                         '.Reset',
-#                         '.Name "metal %s"' % [i for i in range(1000)],
-#                         '.Component "%s"' % 'component1',
-#                         '.Material "PEC"',
-#                         '.Xrange "-a/2","a/2"',
-#                         '.Yrange "-b/2","b/2"',
-#                         '.Zrange "0","tm"',
-#                         '.Create',
-#                         'End With']
-#             sCommand = line_break.join(sCommand)
-#             modeler.add_to_history('define brick', sCommand)
+# 金属层
+arr = get_0_1_array(np.eye(3), rate=0.3)
 
-
-for x in range(3):
-    for y in range(3):
+for x in arr:
+    for y in x:
+        # if j == 1:
         sCommand = ['With Brick',
                     '.Reset',
                     '.Name "metal_%.0f_%.0f"' % (x+1, y+1),
@@ -188,6 +172,21 @@ for x in range(3):
                     'End With']
         sCommand = line_break.join(sCommand)
         modeler.add_to_history('define brick', sCommand)
+
+# for x in range(3):
+#     for y in range(3):
+#         sCommand = ['With Brick',
+#                     '.Reset',
+#                     '.Name "metal_%.0f_%.0f"' % (x+1, y+1),
+#                     '.Component "component1"',
+#                     '.Material "PEC"',
+#                     '.Xrange "l+%d","l+%d"' % (x, y),
+#                     '.Yrange "l+%d","l+%d"' % (x, y),
+#                     '.Zrange "0","0.1"',
+#                     '.Create',
+#                     'End With']
+#         sCommand = line_break.join(sCommand)
+#         modeler.add_to_history('define brick', sCommand)
 
 # # 仿真开始
 # modeler.run_solver()

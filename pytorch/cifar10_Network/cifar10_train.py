@@ -49,6 +49,7 @@ for i in range(epoch):
     print(f'---------第{i + 1}轮---------')
 
     # 训练步骤开始
+    mymodel.train()
     # 整个训练集的loss
     total_train_loss = 0
     start = time.time()
@@ -78,6 +79,7 @@ for i in range(epoch):
     # 整个测试集的准确率
     total_test_accuracy = 0
     # 测试步骤开始
+    mymodel.eval()
     with torch.no_grad():
         for data in test_dataloader:
             imgs, targets = data
