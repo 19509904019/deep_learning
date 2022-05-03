@@ -25,5 +25,6 @@ mymodel.eval()
 with torch.no_grad():  # 无需梯度，节约内存提高性能
     output = mymodel(img)
 print(output.argmax(1))
+print(output)
 
 
