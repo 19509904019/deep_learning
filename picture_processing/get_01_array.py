@@ -11,3 +11,8 @@ def get_0_1_array(array, rate=0.2):
     return re_array
 
 
+if __name__ == '__main__':
+    for i in range(100):
+        a = get_0_1_array(np.eye(16))
+        with open(rf'C:\Users\12414\Desktop\arr\{i}.txt', 'a') as f:
+            f.write(str(a))
