@@ -4,7 +4,7 @@ import numpy as np
 from function import func
 
 # 文件存储路径
-path = r'C:\Users\Dell\Desktop\simulation'
+path = r'C:\Users\12414\Desktop\simulation'
 filename = input("请输入文件名:")
 fullname = os.path.join(path, filename + '.cst')
 
@@ -93,11 +93,8 @@ modeler.add_to_history('create brick2', ring_2)
 # 合并
 modeler.add_to_history('add ring1 and ring2', 'Solid.Add "component:ring1", "component:ring2"')
 
-
 # 仿真开始
 modeler.run_solver()
 
 # 保存
 mws.save(fullname)
-
-
