@@ -1,6 +1,6 @@
 import sys
 
-path = r'C:\Users\Dell\Desktop\111.txt'  # 数据路径
+path = r'C:\Users\Dell\Desktop\1111111.txt'  # 数据路径
 f = open(path, encoding='utf-8')
 line = f.readline()
 list = []
