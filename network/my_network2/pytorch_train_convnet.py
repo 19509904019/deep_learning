@@ -37,7 +37,7 @@ optimizer = Adam(mymodel.parameters(), lr=lr)
 
 # 计数
 train_loss = 0
-epoch = 50
+epoch = 100
 
 for i in range(epoch):
     print(f"-------------第{i + 1}轮--------------")
@@ -50,6 +50,7 @@ for i in range(epoch):
         # print(outputs)
         # 结构参数
         parameter = torch.reshape(parameters[number], (1, -1))
+        # print(parameter)
         # 计算损失函数
         loss = loss_F(outputs, parameter)
         # print(loss)
@@ -63,5 +64,5 @@ for i in range(epoch):
             print(f'训练次数:{train_loss},loss:{loss.item()}')
 
 # 保存模型
-torch.save(mymodel, 'mymodel.pth')
+torch.save(mymodel, 'mymodel1.pth')
 print("保存成功!")
