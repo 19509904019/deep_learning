@@ -159,19 +159,19 @@ arr = get_0_1_array(np.eye(3), rate=0.3)
 
 for x in arr:
     for y in x:
-        # if j == 1:
-        sCommand = ['With Brick',
-                    '.Reset',
-                    '.Name "metal_%.0f_%.0f"' % (x+1, y+1),
-                    '.Component "component1"',
-                    '.Material "PEC"',
-                    '.Xrange "l+%d","l+%d"' % (x, y),
-                    '.Yrange "l+%d","l+%d"' % (x, y),
-                    '.Zrange "0","0.1"',
-                    '.Create',
-                    'End With']
-        sCommand = line_break.join(sCommand)
-        modeler.add_to_history('define brick', sCommand)
+        if y == 1:
+            sCommand = ['With Brick',
+                        '.Reset',
+                        '.Name "metal_%.0f_%.0f"' % (),
+                        '.Component "component1"',
+                        '.Material "PEC"',
+                        '.Xrange "l+%d","l+%d"' % (x, y),
+                        '.Yrange "l+%d","l+%d"' % (x, y),
+                        '.Zrange "0","0.1"',
+                        '.Create',
+                        'End With']
+            sCommand = line_break.join(sCommand)
+            modeler.add_to_history('define brick', sCommand)
 
 # for x in range(3):
 #     for y in range(3):
