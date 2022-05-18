@@ -17,8 +17,8 @@ mws.save(fullname)
 modeler = mws.modeler
 
 # 模型基本参数
-p = 3
-l = 0
+p = 16
+l = 1
 h = 1
 # 在CST中添加模型基本参数
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("theta","0")')
@@ -146,8 +146,8 @@ sCommand = ['With Brick',
             '.Name "%s"' % 'solid1',
             '.Component "%s"' % 'component1',
             '.Material "%s"' % 'Vacuum',
-            f'.Xrange "0", "p"',
-            f'.Yrange "0", "p"',
+            f'.Xrange "-p/2", "p/2"',
+            f'.Yrange "-p/2", "p/2"',
             f'.Zrange "0", "h"',
             '.Create',
             'End With']
@@ -155,38 +155,78 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('define brick', sCommand)
 
 # 金属层
-arr = get_0_1_array(np.eye(3), rate=0.3)
+arr = get_0_1_array(np.eye(int(p / 2)), rate=0.4)
 
-for x in arr:
-    for y in x:
-        if y == 1:
+for x in range(arr.shape[0]):
+    for y in range(arr.shape[1]):
+        if arr[x][y] == 1:
+            # 创建金属单元
             sCommand = ['With Brick',
                         '.Reset',
-                        '.Name "metal_%.0f_%.0f"' % (),
+                        '.Name "metal_%.0f_%.0f"' % (x + 1, y + 1),
                         '.Component "component1"',
-                        '.Material "PEC"',
-                        '.Xrange "l+%d","l+%d"' % (x, y),
-                        '.Yrange "l+%d","l+%d"' % (x, y),
-                        '.Zrange "0","0.1"',
+                        '.Material "Copper (annealed)"',
+                        '.Xrange "%d","%d"' % (x, x + 1),
+                        '.Yrange "%d","%d"' % (y, y + 1),
+                        '.Zrange "h","h + 0.1"',
                         '.Create',
                         'End With']
             sCommand = line_break.join(sCommand)
             modeler.add_to_history('define brick', sCommand)
 
-# for x in range(3):
-#     for y in range(3):
-#         sCommand = ['With Brick',
-#                     '.Reset',
-#                     '.Name "metal_%.0f_%.0f"' % (x+1, y+1),
-#                     '.Component "component1"',
-#                     '.Material "PEC"',
-#                     '.Xrange "l+%d","l+%d"' % (x, y),
-#                     '.Yrange "l+%d","l+%d"' % (x, y),
-#                     '.Zrange "0","0.1"',
-#                     '.Create',
-#                     'End With']
-#         sCommand = line_break.join(sCommand)
-#         modeler.add_to_history('define brick', sCommand)
+            # 镜像操作 以x平面为轴
+            sCommand = ['With Transform',
+                        '.Reset',
+                        '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                        '.Origin "Free"',
+                        '.Center "0", "0", "0"',
+                        '.PlaneNormal "1", "0", "0"',
+                        '.MultipleObjects "True"',
+                        '.GroupObjects "False"',
+                        '.Repetitions "1"',
+                        '.MultipleSelection "False"',
+                        '.Destination ""',
+                        '.Material ""',
+                        '.Transform "Shape", "Mirror"',
+                        'End With']
+            sCommand = line_break.join(sCommand)
+            modeler.add_to_history('transform:mirror', sCommand)
+
+            # 镜像操作 以y平面为轴
+            sCommand = ['With Transform',
+                        '.Reset',
+                        '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                        '.Origin "Free"',
+                        '.Center "0", "0", "0"',
+                        '.PlaneNormal "0", "1", "0"',
+                        '.MultipleObjects "True"',
+                        '.GroupObjects "False"',
+                        '.Repetitions "1"',
+                        '.MultipleSelection "False"',
+                        '.Destination ""',
+                        '.Material ""',
+                        '.Transform "Shape", "Mirror"',
+                        'End With']
+            sCommand = line_break.join(sCommand)
+            modeler.add_to_history('transform:mirror', sCommand)
+
+            # 镜像操作 以x,y平面为轴
+            sCommand = ['With Transform',
+                        '.Reset',
+                        '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                        '.Origin "Free"',
+                        '.Center "0", "0", "0"',
+                        '.Angle "0", "0", "180"',
+                        '.MultipleObjects "True"',
+                        '.GroupObjects "False"',
+                        '.Repetitions "1"',
+                        '.MultipleSelection "False"',
+                        '.Destination ""',
+                        '.Material ""',
+                        '.Transform "Shape", "Rotate"',
+                        'End With']
+            sCommand = line_break.join(sCommand)
+            modeler.add_to_history('transform:rotate', sCommand)
 
 # # 仿真开始
 # modeler.run_solver()
