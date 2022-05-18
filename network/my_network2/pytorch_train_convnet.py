@@ -3,18 +3,19 @@ import torch
 from pytorch_deep_convnet import *
 import torch.nn as nn
 from torch.optim import *
+import time
 
 s11 = []
 parameters = []
 # 电磁响应
-with open(r"C:\Users\Dell\Desktop\s11.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\dataset\train_set\s11.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         s11.append(row)
     s11 = torch.tensor(s11, dtype=torch.float32)
 
 # 几何参数
-with open(r"C:\Users\Dell\Desktop\parameters.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\dataset\train_set\parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         parameters.append(row)
@@ -40,6 +41,7 @@ train_loss = 0
 epoch = 100
 
 for i in range(epoch):
+    start = time.time()
     print(f"-------------第{i + 1}轮--------------")
     # 训练开始
     mymodel.train()
@@ -61,7 +63,8 @@ for i in range(epoch):
         optimizer.step()
 
         if train_loss % 100 == 0:
-            print(f'训练次数:{train_loss},loss:{loss.item()}')
+            end = time.time()
+            print(f'训练次数:{train_loss},loss:{loss.item()},time:{end-start}')
 
 # 保存模型
 torch.save(mymodel, 'mymodel1.pth')
