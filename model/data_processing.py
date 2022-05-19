@@ -39,15 +39,3 @@ for i in range(len(container1)):
             f4.write(line)
     # 清空列表
     container2.clear()
-
-
-
-
-
-# # 存放电磁响应数据
-# count3 = 0
-# for i in range(len(container1)):
-#     count3 += 1
-#     with open(r'C:\Users\Dell\Desktop\data\data2\%d.txt' % count3, 'a') as f3:  # 提取后的数据文件
-#         for line in container2[2::20]:
-#             f3.write(line)
