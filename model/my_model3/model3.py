@@ -1,5 +1,6 @@
 import os
 import cst.interface
+import cst.results
 import numpy as np
 from function import func
 from picture_processing.get_01_array import get_0_1_array
@@ -18,13 +19,11 @@ modeler = mws.modeler
 
 # 模型基本参数
 p = 16
-l = 1
-h = 1
+h = 0.1
 # 在CST中添加模型基本参数
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("theta","0")')
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("phi","0")')
 modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("p","{p}")')
-modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("l","{l}")')
 modeler.add_to_history(f'StoreParameter', f'MakeSureParameterExists("h","{h}")')
 
 line_break = '\n'
@@ -76,29 +75,29 @@ modeler.add_to_history("define background", sCommand)
 
 
 # 设置边界条件
-sCmmand = ['With Boundary',
-           '.Xmin "unit cell"',
-           '.Xmax "unit cell"',
-           '.Ymin "unit cell"',
-           '.Ymax "unit cell"',
-           '.Zmin "electric"',
-           '.Zmax "expanded open"',
-           '.Xsymmetry "none"',
-           '.Ysymmetry "none"',
-           '.Zsymmetry "none"',
-           '.ApplyInAllDirections "False"',
-           '.XPeriodicShift "0.0"',
-           '.YPeriodicShift "0.0"',
-           '.ZPeriodicShift "0.0"',
-           '.PeriodicUseConstantAngles "False"',
-           '.SetPeriodicBoundaryAngles "theta", "phi"',
-           '.SetPeriodicBoundaryAnglesDirection "inward"',
-           '.UnitCellFitToBoundingBox "True"',
-           '.UnitCellDs1 "0.0"',
-           '.UnitCellDs2 "0.0"',
-           '.UnitCellAngle "90.0"',
-           'End With']
-sCmmand = line_break.join(sCmmand)
+sCommand = ['With Boundary',
+            '.Xmin "unit cell"',
+            '.Xmax "unit cell"',
+            '.Ymin "unit cell"',
+            '.Ymax "unit cell"',
+            '.Zmin "electric"',
+            '.Zmax "expanded open"',
+            '.Xsymmetry "none"',
+            '.Ysymmetry "none"',
+            '.Zsymmetry "none"',
+            '.ApplyInAllDirections "False"',
+            '.XPeriodicShift "0.0"',
+            '.YPeriodicShift "0.0"',
+            '.ZPeriodicShift "0.0"',
+            '.PeriodicUseConstantAngles "False"',
+            '.SetPeriodicBoundaryAngles "theta", "phi"',
+            '.SetPeriodicBoundaryAnglesDirection "inward"',
+            '.UnitCellFitToBoundingBox "True"',
+            '.UnitCellDs1 "0.0"',
+            '.UnitCellDs2 "0.0"',
+            '.UnitCellAngle "90.0"',
+            'End With']
+sCommand = line_break.join(sCommand)
 modeler.add_to_history('define boundary', sCommand)
 # 设置边界条件结束
 
@@ -138,6 +137,10 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('set excitation', sCommand)
 # 设置完成
 
+# 新建介质材料
+PMI = func.create_material('PMI', 1.05)
+modeler.add_to_history("create new material", PMI)
+
 # 建模开始
 
 # 介质层
@@ -157,8 +160,8 @@ modeler.add_to_history('define brick', sCommand)
 # 金属层
 arr = get_0_1_array(np.eye(int(p / 2)), rate=0.4)
 
-for x in range(arr.shape[0]):
-    for y in range(arr.shape[1]):
+for x in np.arange(arr.shape[0]):
+    for y in np.arange(arr.shape[1]):
         if arr[x][y] == 1:
             # 创建金属单元
             sCommand = ['With Brick',
@@ -168,7 +171,7 @@ for x in range(arr.shape[0]):
                         '.Material "Copper (annealed)"',
                         '.Xrange "%d","%d"' % (x, x + 1),
                         '.Yrange "%d","%d"' % (y, y + 1),
-                        '.Zrange "h","h + 0.1"',
+                        '.Zrange "h","h+0.035"',
                         '.Create',
                         'End With']
             sCommand = line_break.join(sCommand)
@@ -228,9 +231,22 @@ for x in range(arr.shape[0]):
             sCommand = line_break.join(sCommand)
             modeler.add_to_history('transform:rotate', sCommand)
 
-# # 仿真开始
-# modeler.run_solver()
-# # 仿真结束
+# 仿真开始
+modeler.run_solver()
+# 仿真结束
 
 # 保存
 mws.save(fullname)
+
+# # 读取数据
+# project = cst.results.ProjectFile(fullname, allow_interactive=True)  # 允许窗口打开读取
+# s11 = project.get_3d().get_result_item(r'1D Results\S-Parameters\SZmax(1),Zmax(1)')
+#
+# data = s11.get_ydata()
+# # print(data[0])
+# container1 = []
+# with open(r'C:\Users\12414\Desktop\data\metal_%.0f_%.0f.txt', 'r') as f:
+#         container = f.readlines()
+#         # container = container[::34]
+#         with open(r'C:\Users\12414\Desktop\1.txt','a') as w:
+#             w.write(str(container))

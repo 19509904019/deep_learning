@@ -10,7 +10,7 @@
 #         wstream.write(str(i)+'\n')
 container1 = []
 with open(r'C:\Users\12414\Desktop\data\123.txt', 'r') as f:
-        container = f.readlines()
-        container = container[::34]
-        with open(r'C:\Users\12414\Desktop\1.txt','a') as w:
-            w.write(str(container))
+    container = f.readlines()
+    container = container[::34]
+    with open(r'C:\Users\12414\Desktop\1.txt', 'a') as w:
+        w.write(str(container))
