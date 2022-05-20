@@ -2,6 +2,7 @@ import csv
 import torch
 import pandas as pd
 
+# 第一种
 targets = []
 with open(r"C:\Users\Dell\Desktop\geometric_parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
@@ -12,7 +13,7 @@ with open(r"C:\Users\Dell\Desktop\geometric_parameters.csv") as csvfile:
 # targets = torch.tensor(targets, dtype=torch.float32)
 # print(targets[0])
 
-
+# 第二种
 def load_csv(path):
     data_read = pd.read_csv(path)
     list = data_read.values.tolist()
