@@ -19,7 +19,7 @@ modeler = mws.modeler
 
 # 模型基本参数
 p = 16
-h = 0.1
+h = 2
 # 在CST中添加模型基本参数
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("theta","0")')
 modeler.add_to_history(f'StoreParameter', 'MakeSureParameterExists("phi","0")')
@@ -137,9 +137,12 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('set excitation', sCommand)
 # 设置完成
 
-# 新建介质材料
-PMI = func.create_material('PMI', 1.05)
-modeler.add_to_history("create new material", PMI)
+# # 新建介质材料
+# PMI = func.create_material('PMI', 1.05)
+# modeler.add_to_history("create new material", PMI)
+
+FR_4_lossy = func.create_FR4_lossy()
+modeler.add_to_history("define FR_4_lossy", FR_4_lossy)
 
 # 建模开始
 
@@ -148,7 +151,7 @@ sCommand = ['With Brick',
             '.Reset',
             '.Name "%s"' % 'solid1',
             '.Component "%s"' % 'component1',
-            '.Material "%s"' % 'Vacuum',
+            '.Material "%s"' % 'FR-4 (lossy)',
             f'.Xrange "-p/2", "p/2"',
             f'.Yrange "-p/2", "p/2"',
             f'.Zrange "0", "h"',

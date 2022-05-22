@@ -1,4 +1,5 @@
 import os
+
 # 换行符，用于VB代码拼接用
 line_break = '\n'
 
@@ -263,3 +264,41 @@ def create_Lossymetal(name, ohm):
     return sCommand
 
 
+# FR-4(lossy)
+def create_FR4_lossy():
+    sCommand = ['With Material',
+                '.Reset',
+                '.Name "FR-4 (lossy)"',
+                '.Folder ""',
+                '.FrqType "all"',
+                '.Type "Normal"',
+                '.SetMaterialUnit "GHz", "mm"',
+                '.Epsilon "4.3"',
+                '.Mu "1.0"',
+                '.Kappa "0.0"',
+                '.TanD "0.025"',
+                '.TanDFreq "10.0"',
+                '.TanDGiven "True"',
+                '.TanDModel "ConstTanD"',
+                '.KappaM "0.0"',
+                '.TanDM "0.0"',
+                '.TanDMFreq "0.0"',
+                '.TanDMGiven "False"',
+                '.TanDMModel "ConstKappa"',
+                '.DispModelEps "None"',
+                '.DispModelMu "None"',
+                '.DispersiveFittingSchemeEps "General 1st"',
+                '.DispersiveFittingSchemeMu "General 1st"',
+                '.UseGeneralDispersionEps "False"',
+                '.UseGeneralDispersionMu "False"',
+                '.Rho "0.0"',
+                '.ThermalType "Normal"',
+                '.ThermalConductivity "0.3"',
+                '.SetActiveMaterial "all"',
+                '.Colour "0.94", "0.82", "0.76"',
+                '.Wireframe "False"',
+                '.Transparency "0"',
+                '.Create',
+                'End With']
+    sCommand = line_break.join(sCommand)
+    return sCommand
