@@ -15,7 +15,7 @@ with open(r"C:\Users\user2\Desktop\dataset\dataset1\test_set\s11.csv") as csvfil
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         test_s11.append(row)
-    test_s11 = torch.tensor(test_s11, dtype=torch.float32)
+    test_s11 = torch.tensor(test_s11, dtype=torch.float64)
 
 # 几何参数
 test_parameters = []
@@ -23,16 +23,16 @@ with open(r"C:\Users\user2\Desktop\dataset\dataset1\test_set\parameters.csv") as
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         test_parameters.append(row)
-    test_parameters = torch.tensor(test_parameters, dtype=torch.float32)
+    test_parameters = torch.tensor(test_parameters, dtype=torch.float64)
 
 # 加载已经训练好的模型
 mymodel = torch.load('mymodel1.pth')
 
 # 进行测试
 device = torch.device('cuda:0')  # GPU加速
-outputs = torch.tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=torch.float32)
+outputs = torch.tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=torch.float64)
 outputs = torch.reshape(outputs, (1, -1)).to(device)  # 存放预测结果的总和
-parameters = torch.tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=torch.float32)
+parameters = torch.tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=torch.float64)
 parameters = torch.reshape(parameters, (1, -1)).to(device)  # 存放真实结果的总和
 # 开始测试
 mymodel.eval()

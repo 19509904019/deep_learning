@@ -12,14 +12,14 @@ with open(r"C:\Users\user2\Desktop\dataset\dataset1\train_set\s11.csv") as csvfi
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         s11.append(row)
-    s11 = torch.tensor(s11, dtype=torch.float32)
+    s11 = torch.tensor(s11, dtype=torch.float64)
 
 # 几何参数
 with open(r"C:\Users\user2\Desktop\dataset\dataset1\train_set\parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         parameters.append(row)
-    parameters = torch.tensor(parameters, dtype=torch.float32)
+    parameters = torch.tensor(parameters, dtype=torch.float64)
 
 # print(s11)
 # print(type(s11))
