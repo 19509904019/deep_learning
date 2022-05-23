@@ -12,6 +12,7 @@ class MyModel(nn.Module):
             nn.MaxPool1d(2),
             # 第二层卷积
             nn.Conv1d(16, 32, kernel_size=2),
+            nn.ReLU(),
             nn.MaxPool1d(3),
             # 压平
             nn.Flatten(),
