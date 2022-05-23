@@ -11,7 +11,7 @@ def RSE(r, g):
 
 # 测试数据
 test_s11 = []
-with open(r"C:\Users\user2\Desktop\dataset\dataset1\test_set\s11.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\dataset\dataset2\test_set\s11.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         test_s11.append(row)
@@ -19,7 +19,7 @@ with open(r"C:\Users\user2\Desktop\dataset\dataset1\test_set\s11.csv") as csvfil
 
 # 几何参数
 test_parameters = []
-with open(r"C:\Users\user2\Desktop\dataset\dataset1\test_set\parameters.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\dataset\dataset2\test_set\parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         test_parameters.append(row)
@@ -50,7 +50,7 @@ with torch.no_grad():  # 无需梯度
         parameters += parameter
         # 真实结果与预测结果相对光谱误差
         result_1 = RSE(parameter, output)
-        if test_total % 100 ==0:
+        if test_total % 100 == 0:
             print(f"第{test_total}个:预测结果为：{output},真实结果为：{parameter},相对光谱误差为：{result_1}")
 
     # 整体的相对光谱误差
