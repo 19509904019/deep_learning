@@ -3,8 +3,8 @@ container1 = []
 with open(r'C:\Users\Dell\Desktop\s11_linear.txt', 'r') as f:
     # 按行读取全部内容
     lines = f.readlines()
-    for i in range(0, len(lines), 1005):
-        new_lines = lines[i + 1:i + 1005]
+    for i in range(0, len(lines), 1007):
+        new_lines = lines[i + 2:i + 1002]
         container1.append(new_lines)
 
 # 将每组数据取出(频率  响应数据)

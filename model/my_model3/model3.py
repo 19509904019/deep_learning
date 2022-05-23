@@ -161,7 +161,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('define brick', sCommand)
 
 # 金属层
-arr = get_0_1_array(np.eye(int(p / 2)), rate=0.4)
+arr = get_0_1_array(np.eye(int(p / 2)), rate=0.5)
 
 for x in np.arange(arr.shape[0]):
     for y in np.arange(arr.shape[1]):
