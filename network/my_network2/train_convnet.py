@@ -4,22 +4,21 @@ from network_convnet import *
 import torch.nn as nn
 from torch.optim import *
 
-
 s11 = []
 parameters = []
 # 电磁响应
-with open(r"C:\Users\user2\Desktop\dataset\dataset1\train_set\s11.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\dataset\dataset1\train_set\s11.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         s11.append(row)
-    s11 = torch.tensor(s11, dtype=torch.float64)
+    s11 = torch.tensor(s11, dtype=torch.float)
 
 # 几何参数
-with open(r"C:\Users\user2\Desktop\dataset\dataset1\train_set\parameters.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\dataset\dataset1\train_set\parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         parameters.append(row)
-    parameters = torch.tensor(parameters, dtype=torch.float64)
+    parameters = torch.tensor(parameters, dtype=torch.float)
 
 # print(s11)
 # print(type(s11))
@@ -37,11 +36,17 @@ loss_F = nn.L1Loss()
 lr = 1e-3
 optimizer = Adam(mymodel.parameters(), lr=lr)
 
-# 计数
-train_loss = 0
+# # 计数
+# train_loss = 0
+epoch = 0
 flag = True
 
 while flag:
+    # 每一次训练总数据量
+    train_loss = 0
+    # 训练的轮数
+    epoch += 1
+    print(f'--------------第{epoch}轮--------------')
     # 训练开始
     mymodel.train()
     for number in range(len(s11)):
@@ -61,8 +66,8 @@ while flag:
         loss.backward()
         optimizer.step()
 
-        if train_loss % 2400 == 0:
-            print(f'训练轮数:{train_loss // 2400},loss:{loss.item()}')
+        if train_loss % 100 == 0:
+            print(f'训练数据数量:{train_loss},loss:{loss.item()}')
 
         if loss.item() < 0.02:
             flag = False

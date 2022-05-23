@@ -8,7 +8,7 @@ class MyModel(nn.Module):
         super(MyModel, self).__init__()
         self.model1 = nn.Sequential(
             # 第一层卷积
-            nn.Conv1d(1, 16, kernel_size=501),
+            nn.Conv1d(1, 16, kernel_size=2, stride=2),
             nn.MaxPool1d(2),
             # 第二层卷积
             nn.Conv1d(16, 32, kernel_size=2),
@@ -25,18 +25,22 @@ class MyModel(nn.Module):
         self.model2 = nn.Sequential(
             # 第一层卷积
             nn.Conv1d(1, 32, kernel_size=2),
+            nn.ReLU(),
             nn.MaxPool1d(2),
             nn.BatchNorm1d(32),
             # 第二层卷积
             nn.Conv1d(32, 64, kernel_size=2),
+            nn.ReLU(),
             nn.MaxPool1d(2),
             nn.BatchNorm1d(64),
             # 第三层卷积
             nn.Conv1d(64, 128, kernel_size=2),
+            nn.ReLU(),
             nn.MaxPool1d(2),
             nn.BatchNorm1d(128),
             # 第四层卷积
             nn.Conv1d(128, 256, kernel_size=2),
+            nn.ReLU(),
             nn.MaxPool1d(2),
             nn.BatchNorm1d(256),
             nn.Flatten(),
