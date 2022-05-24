@@ -12,10 +12,10 @@ def get_0_1_array(array, rate=np.random.randint(1, 9) * 0.1):
 
 
 if __name__ == '__main__':
-    # for i in range(100):
-    a = get_0_1_array(np.eye(3))
+    a = get_0_1_array(np.eye(8))
+    print(a)
+    f = open(r'C:\Users\Dell\Desktop\123.txt', 'a')
     for i in range(a.shape[0]):
         for j in range(a.shape[1]):
-            print(f"a{[i]}{[j]}:{a[i][j]}")
-        # with open(rf'C:\Users\12414\Desktop\arr\{i+1}.txt', 'a') as f:
-        #     f.write(str(a))
+            f.write(str(a[i][j])+'\n')
+    f.close()
