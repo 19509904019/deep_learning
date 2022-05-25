@@ -217,7 +217,7 @@ for i in range(2):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:mirror', sCommand)
 
-                # 镜像操作 以x,y平面为轴
+                # 旋转操作
                 sCommand = ['With Transform',
                             '.Reset',
                             '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
