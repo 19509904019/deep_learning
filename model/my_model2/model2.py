@@ -2,9 +2,10 @@ import os
 import cst.interface
 import numpy as np
 from function import func
+import cst.results
 
 # 文件存储路径
-path = r'C:\Users\12414\Desktop\simulation'
+path = r'C:\Users\Dell\Desktop\simulation'
 filename = input("请输入文件名:")
 fullname = os.path.join(path, filename + '.cst')
 
@@ -75,7 +76,6 @@ modeler.add_to_history('set floquetport', func.set_floquetport())
 # 设置激励
 modeler.add_to_history('set excitation', func.solver_excitation())
 #
-
 
 # 新建介质材料
 PMI = func.create_material('PMI', 1.05)
@@ -151,14 +151,11 @@ modeler.run_solver()
 # 保存
 mws.save(fullname)
 
-# dataname = 'example.txt'
-# sCommmd = ['With ASCIIExport',
+# # 导出数据
+# sCommmd = ['SelectTreeItem("1D Results\S-Parameters\SZmax(1),Zmax(1)")',
+#            'With ASCIIExport',
 #            '.Reset',
-#            '.FileName "%s"' % dataname,
-#            '.Mode("FixedNumber")',
-#            '.StepX (12)',
-#            '.StepY (12)',
-#            '.StepZ (8)',
+#            '.FileName "%s"' % r'C:\Users\Dell\Desktop\123.txt',
 #            '.Execute',
 #            'End With']
 # sCommmd = '\n'.join(sCommmd)
