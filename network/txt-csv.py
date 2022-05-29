@@ -18,5 +18,5 @@ for i in os.listdir(path):
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\12414\Desktop\new_csv\new_csv.csv'
+new_path = r'C:\Users\12414\Desktop\new_csv.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')
