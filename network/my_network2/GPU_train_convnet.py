@@ -1,21 +1,19 @@
 import csv
-import torch
 from network_convnet import *
 import torch.nn as nn
 from torch.optim import *
-import time
 
 s11 = []
 parameters = []
 # 电磁响应
-with open(r"C:\Users\12414\Desktop\dataset\dataset2\train_set\s11.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\dataset\dataset1\train_set\s11.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         s11.append(row)
     s11 = torch.tensor(s11, dtype=torch.float)
 
 # 几何参数
-with open(r"C:\Users\12414\Desktop\dataset\dataset2\train_set\parameters.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\dataset\dataset1\train_set\parameters.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # change contents to floats
     for row in reader:  # each row is a list
         parameters.append(row)
@@ -77,5 +75,5 @@ while flag:
             break
 
 # 保存模型
-torch.save(mymodel, 'mymodel2.pth')
+torch.save(mymodel, 'mymodel1.pth')
 print("保存成功!")
