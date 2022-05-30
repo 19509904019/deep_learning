@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # 文件路径
-path = r'C:\Users\12414\Desktop\data\data2'
+path = r'C:\Users\Dell\Desktop\data\data2'
 
 df1 = []
 for i in os.listdir(path):
@@ -18,5 +18,5 @@ for i in os.listdir(path):
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\12414\Desktop\new_csv.csv'
+new_path = r'C:\Users\Dell\Desktop\new_dB.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')

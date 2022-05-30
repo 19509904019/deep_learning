@@ -1,6 +1,6 @@
 # 将原文件的内容进行划分
 container1 = []
-with open(r'C:\Users\12414\Desktop\s11_linear.txt', 'r') as f:
+with open(r'C:\Users\Dell\Desktop\dB.txt', 'r') as f:
     # 按行读取全部内容
     lines = f.readlines()
     for i in range(0, len(lines), 1007):
@@ -11,7 +11,7 @@ with open(r'C:\Users\12414\Desktop\s11_linear.txt', 'r') as f:
 count1 = 0  # 作为文件序列
 for data in container1:
     count1 += 1
-    with open(r'C:\Users\12414\Desktop\data\data1\%d.txt' % count1, 'a') as w:
+    with open(r'C:\Users\Dell\Desktop\data\data1\%d.txt' % count1, 'a') as w:
         data = "".join(data)
         w.write(data)
 
@@ -19,7 +19,7 @@ for data in container1:
 count2 = 0
 for i in range(len(container1)):
     count2 += 1
-    with open(r'C:\Users\12414\Desktop\data\data1\%d.txt' % count2, 'r') as f2:
+    with open(r'C:\Users\Dell\Desktop\data\data1\%d.txt' % count2, 'r') as f2:
         line = f2.readline()  # 按每行读取,方便切片
         container2 = []  # 存放电磁响应的数据
         while line:
@@ -29,12 +29,12 @@ for i in range(len(container1)):
             line = f2.readline()
 
     # 存放电磁响应数据
-    with open(r'C:\Users\12414\Desktop\data\data2\%d.txt' % count2, 'a') as f3:  # 提取后的数据文件
+    with open(r'C:\Users\Dell\Desktop\data\data2\%d.txt' % count2, 'a') as f3:  # 提取后的数据文件
         for line in container2:
             f3.write(line)
 
     # 对响应数据进行切片输出50个数据
-    with open(r'C:\Users\12414\Desktop\data\data3\%d.txt' % count2, 'a') as f4:  # 提取后的数据文件
+    with open(r'C:\Users\Dell\Desktop\data\data3\%d.txt' % count2, 'a') as f4:  # 提取后的数据文件
         for line in container2[5::20]:
             f4.write(line)
     # 清空列表
