@@ -13,12 +13,12 @@ modeler = mws.modeler
 
 # 数据总数
 count = 0
-for i in range(2):
+for i in range(1):
     count += 1
     # # 文件存储路径
-    # path = r'C:\Users\Dell\Desktop\simulation'
-    # fullname = os.path.join(path, f'{count}.cst')
-    # mws.save(fullname)
+    path = r'C:\Users\Dell\Desktop\simulation'
+    fullname = os.path.join(path, f'{count}.cst')
+    mws.save(fullname)
 
     # 模型基本参数
     p = 16
@@ -157,6 +157,7 @@ for i in range(2):
     # 金属层
     # 随机生成矩阵并用文档进行存储
     arr = get_0_1_array(np.eye(int(p / 2)), rate=0.5)
+    print(arr)
     f = open(rf'C:\Users\Dell\Desktop\arr_data\{count}-matrix.txt', 'a')
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
@@ -164,18 +165,18 @@ for i in range(2):
     f.close()
 
     # 利用随机矩阵进行金属片建模
-    for x in np.arange(arr.shape[0]):
-        for y in np.arange(arr.shape[1]):
+    for y in np.arange(arr.shape[0]):
+        for x in np.arange(arr.shape[1]):
             if arr[x][y] == 1:
                 # 创建金属单元
                 sCommand = ['With Brick',
                             '.Reset',
-                            '.Name "metal_%.0f_%.0f"' % (x + 1, y + 1),
+                            '.Name "metal_%.0f_%.0f"' % (y + 1, x + 1),
                             '.Component "component1"',
                             '.Material "Copper (annealed)"',
-                            '.Xrange "%d","%d"' % (x, x + 1),
-                            '.Yrange "%d","%d"' % (y, y + 1),
-                            '.Zrange "h","h+0.035"',
+                            '.Xrange "%d","%d"' % (x - (p / 2), x - (p / 2) + 1),
+                            '.Yrange "%d","%d"' % ((p / 2) - (y + 1), (p / 2) - y),
+                            '.Zrange "h","h+0.018"',
                             '.Create',
                             'End With']
                 sCommand = line_break.join(sCommand)
@@ -184,7 +185,7 @@ for i in range(2):
                 # 镜像操作 以x平面为轴
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.PlaneNormal "1", "0", "0"',
@@ -202,7 +203,7 @@ for i in range(2):
                 # 镜像操作 以y平面为轴
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.PlaneNormal "0", "1", "0"',
@@ -220,7 +221,7 @@ for i in range(2):
                 # 旋转操作
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.Angle "0", "0", "180"',
@@ -235,9 +236,9 @@ for i in range(2):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:rotate', sCommand)
 
-    # 仿真开始
-    modeler.run_solver()
-    # 仿真结束
+    # # 仿真开始
+    # modeler.run_solver()
+    # # 仿真结束
 
     # # 保存
     # mws.save(fullname)
@@ -255,21 +256,20 @@ for i in range(2):
     # sCommmd = '\n'.join(sCommmd)
     # modeler.add_to_history('save data', sCommmd)
 
-    # 导出dB数据
-    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\SZmax(1),Zmax(1)")',
-               'With Plot1D',
-               '.PlotView "magnitudedb"',
-               'End With',
-               'With ASCIIExport',
-               '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
-               '.Execute',
-               'End With']
-    sCommmd = '\n'.join(sCommmd)
-    modeler.add_to_history('save data', sCommmd)
+    # # 导出dB数据
+    # sCommmd = ['SelectTreeItem("1D Results\S-Parameters\SZmax(1),Zmax(1)")',
+    #            'With Plot1D',
+    #            '.PlotView "magnitudedb"',
+    #            'End With',
+    #            'With ASCIIExport',
+    #            '.Reset',
+    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
+    #            '.Execute',
+    #            'End With']
+    # sCommmd = '\n'.join(sCommmd)
+    # modeler.add_to_history('save data', sCommmd)
 
-    # 删除component
-    sCommand = 'Component.Delete "component1" '
-    modeler.add_to_history('delete component', sCommand)
-    # 删除完成
-
+    # # 删除component
+    # sCommand = 'Component.Delete "component1" '
+    # modeler.add_to_history('delete component', sCommand)
+    # # 删除完成
