@@ -13,12 +13,12 @@ modeler = mws.modeler
 
 # 存储数据量
 count = 0
-for i in range(10):
+for i in range(1):
     count += 1
-    # # 文件存储路径
-    # path = r'C:\Users\Dell\Desktop\simulation'
-    # fullname = os.path.join(path, f'{count}.cst')
-    # mws.save(fullname)
+    # 文件存储路径
+    path = r'C:\Users\Dell\Desktop\simulation'
+    fullname = os.path.join(path, f'{count}.cst')
+    mws.save(fullname)
 
     # 模型基本参数
     p = 16  # 周期
@@ -315,27 +315,27 @@ for i in range(10):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:rotate', sCommand)
 
-    # 仿真开始
-    modeler.run_solver()
-    # 仿真结束
-
-    # # 保存
-    # mws.save(fullname)
-
-    # 导出phase数据
-    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
-               'With Plot1D',
-               '.PlotView "phase"',
-               'End With',
-               'With ASCIIExport',
-               '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
-               '.Execute',
-               'End With']
-    sCommmd = '\n'.join(sCommmd)
-    modeler.add_to_history('save data', sCommmd)
-
-    # 删除component
-    sCommand = 'Component.Delete "component1" '
-    modeler.add_to_history('delete component', sCommand)
-    # 删除完成
+    # # 仿真开始
+    # modeler.run_solver()
+    # # 仿真结束
+    #
+    # # # 保存
+    # # mws.save(fullname)
+    #
+    # # 导出phase数据
+    # sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
+    #            'With Plot1D',
+    #            '.PlotView "phase"',
+    #            'End With',
+    #            'With ASCIIExport',
+    #            '.Reset',
+    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
+    #            '.Execute',
+    #            'End With']
+    # sCommmd = '\n'.join(sCommmd)
+    # modeler.add_to_history('save data', sCommmd)
+    #
+    # # 删除component
+    # sCommand = 'Component.Delete "component1" '
+    # modeler.add_to_history('delete component', sCommand)
+    # # 删除完成

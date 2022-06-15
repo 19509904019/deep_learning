@@ -5,7 +5,9 @@ filepath = r'C:\Users\Dell\Desktop\s11_data'
 # 打开文件夹
 filename = os.listdir(filepath)
 # 读取文件
+count = 0
 for file in filename:
+    count += 1
     # 文件完整路径
     fullpath = os.path.join(filepath, file)
     # 对文件进行截取操作
@@ -13,7 +15,7 @@ for file in filename:
         # 按行读取全部内容
         lines = f.readlines()
         for i in range(0, len(lines)):
-            new_lines = lines[2:]
+            new_lines = lines[2:1002]
 
         # 截取相位数据
         container = []
@@ -23,7 +25,7 @@ for file in filename:
             container.append(b)
 
         # 用文件保存
-        with open(r'C:\Users\Dell\Desktop\new_data' + '\\' + file, 'a') as f:  # 提取后的数据文件
+        with open(r'C:\Users\Dell\Desktop\new_data\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
             for line in container:
                 f.write(line)
 
