@@ -2,7 +2,7 @@ import os
 import cst.interface
 import cst.results
 import numpy as np
-from function import func
+import random
 from picture_processing.get_01_array import get_0_1_array
 
 # 建立仿真环境
@@ -11,23 +11,24 @@ mws = cst.new_mws()
 # 建立模型
 modeler = mws.modeler
 
-# 数据总数
+# 存储数据量
 count = 0
-for i in range(1):
+for i in range(10):
     count += 1
     # # 文件存储路径
-    path = r'C:\Users\Dell\Desktop\simulation'
-    fullname = os.path.join(path, f'{count}.cst')
-    mws.save(fullname)
+    # path = r'C:\Users\Dell\Desktop\simulation'
+    # fullname = os.path.join(path, f'{count}.cst')
+    # mws.save(fullname)
 
     # 模型基本参数
-    p = 16
-    h = 2
+    p = 16  # 周期
+    h = 3  # 介质层厚度
     # 在CST中添加模型基本参数
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("theta","0")')
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("phi","0")')
     modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("p","{p}")')
     modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("h","{h}")')
+    # 基本参数设置完成
 
     line_break = '\n'
     # 全局单位初始化
@@ -44,14 +45,14 @@ for i in range(1):
                 '.Capacitance "F"',
                 'End With']
     sCommand = line_break.join(sCommand)
-    modeler.add_to_history('define units', sCommand)
+    modeler.add_to_history('set units', sCommand)
     # 全局单位初始化结束
 
     # 设置工作频率
-    frq1 = 2
-    frq2 = 18
+    frq1 = 5
+    frq2 = 15
     sCommand = 'Solver.FrequencyRange "%f", "%f"' % (frq1, frq2)
-    modeler.add_to_history('define frequency range', sCommand)
+    modeler.add_to_history('set frequency range', sCommand)
     # 工作频率设置结束
 
     # 设置背景材料
@@ -71,81 +72,159 @@ for i in range(1):
                 '.ZmaxSpace "0.0"',
                 'End With']
     sCommand = line_break.join(sCommand)
-    modeler.add_to_history("define background", sCommand)
+    modeler.add_to_history("set background", sCommand)
     # 背景材料设置结束
 
     # 设置边界条件
     sCommand = ['With Boundary',
-                '.Xmin "unit cell"',
-                '.Xmax "unit cell"',
-                '.Ymin "unit cell"',
-                '.Ymax "unit cell"',
-                '.Zmin "electric"',
+                '.Xmin "electric"',
+                '.Xmax "electric"',
+                '.Ymin "magnetic"',
+                '.Ymax "magnetic"',
+                '.Zmin "expanded open"',
                 '.Zmax "expanded open"',
-                '.Xsymmetry "none"',
-                '.Ysymmetry "none"',
+                '.Xsymmetry "electric"',
+                '.Ysymmetry "magnetic"',
                 '.Zsymmetry "none"',
                 '.ApplyInAllDirections "False"',
-                '.XPeriodicShift "0.0"',
-                '.YPeriodicShift "0.0"',
-                '.ZPeriodicShift "0.0"',
-                '.PeriodicUseConstantAngles "False"',
-                '.SetPeriodicBoundaryAngles "theta", "phi"',
-                '.SetPeriodicBoundaryAnglesDirection "inward"',
-                '.UnitCellFitToBoundingBox "True"',
-                '.UnitCellDs1 "0.0"',
-                '.UnitCellDs2 "0.0"',
-                '.UnitCellAngle "90.0"',
+                '.OpenAddSpaceFactor "0.5"',
                 'End With']
     sCommand = line_break.join(sCommand)
-    modeler.add_to_history('define boundary', sCommand)
+    modeler.add_to_history('set boundary conditions', sCommand)
     # 设置边界条件结束
 
     # 设置求解器
-    sCommand = 'ChangeSolverType("HF Frequency Domain")'
+    sCommand = 'ChangeSolverType("HF Time Domain")'
     modeler.add_to_history('set slover type', sCommand)
     # 求解器设置结束
 
     # 设置端口
-    sCommand = ['With FloquetPort',
+    sCommand = ['With Port',
                 '.Reset',
-                '.SetDialogTheta "0"',
-                '.SetDialogPhi "0"',
-                '.SetSortCode "+beta/pw"',
-                '.SetCustomizedListFlag "False"',
-                '.Port "Zmin"',
-                '.SetNumberOfModesConsidered "2"',
-                '.Port "Zmax"',
-                '.SetNumberOfModesConsidered "2"',
+                '.PortNumber "1"',
+                '.Label ""',
+                '.Folder ""',
+                '.NumberOfModes "1"',
+                '.AdjustPolarization "False"',
+                '.PolarizationAngle "0.0"',
+                '.ReferencePlaneDistance "0"',
+                '.TextSize "50"',
+                '.TextMaxLimit "1"',
+                '.Coordinates "Full"',
+                '.Orientation "zmin"',
+                '.PortOnBound "True"',
+                '.ClipPickedPortToBound "False"',
+                '.Xrange "-8", "8"',
+                '.Yrange "-8", "8"',
+                '.Zrange "-7.49481145", "-7.49481145"',
+                '.XrangeAdd "0.0", "0.0"',
+                '.YrangeAdd "0.0", "0.0"',
+                '.ZrangeAdd "0.0", "0.0"',
+                '.SingleEnded "False"',
+                '.WaveguideMonitor "False"',
+                '.Create',
                 'End With']
     sCommand = line_break.join(sCommand)
-    modeler.add_to_history('define FloquetPort', sCommand)
+    modeler.add_to_history('set Port', sCommand)
     # 端口设置结束
 
-    # 设置激励
-    sCommand = ['With FDSolver',
-                '.Reset',
-                '.Stimulation "List", "List"',
-                '.ResetExcitationList',
-                '.AddToExcitationList "Zmax", "TE(0,0);TM(0,0)"',
-                '.LowFrequencyStabilization "False"',
+    # 计算方式设置
+    sCommand = ['Mesh.SetCreator "High Frequency"',
+
+                'With Solver ',
+                '.Method "Hexahedral"',
+                '.CalculationType "TD-S"',
+                '.StimulationPort "1"',
+                '.StimulationMode "1"',
+                '.SteadyStateLimit "-40"',
+                '.MeshAdaption "False"',
+                '.CalculateModesOnly "False"',
+                '.SParaSymmetry "False"',
+                '.StoreTDResultsInCache  "False"',
+                '.FullDeembedding "False"',
+                '.SuperimposePLWExcitation "False"',
+                '.UseSensitivityAnalysis "False"',
                 'End With']
     sCommand = line_break.join(sCommand)
     modeler.add_to_history('set excitation', sCommand)
     # 设置完成
 
-    # FR-4 介质
-    FR_4_lossy = func.create_FR4_lossy()
-    modeler.add_to_history("define FR_4_lossy", FR_4_lossy)
+    # 定义中间介质  2.2+0.001
+    sCommand = ['With Material',
+                '.Reset',
+                '.Name "medium"',
+                '.Folder ""',
+                '.Rho "0.0"',
+                '.ThermalType "Normal"',
+                '.ThermalConductivity "0"',
+                '.SpecificHeat "0", "J/K/kg"',
+                '.DynamicViscosity "0"',
+                '.Emissivity "0"',
+                '.MetabolicRate "0.0"',
+                '.VoxelConvection "0.0"',
+                '.BloodFlow "0"',
+                '.MechanicsType "Unused"',
+                '.FrqType "all"',
+                '.Type "Normal"',
+                '.MaterialUnit "Frequency", "GHz"',
+                '.MaterialUnit "Geometry", "mm"',
+                '.MaterialUnit "Time", "s"',
+                '.MaterialUnit "Temperature", "Kelvin"',
+                '.Epsilon "2.2"',
+                '.Mu "1"',
+                '.Sigma "0"',
+                '.TanD "0.001"',
+                '.TanDFreq "0.0"',
+                '.TanDGiven "True"',
+                '.TanDModel "ConstTanD"',
+                '.EnableUserConstTanDModelOrderEps "False"',
+                '.ConstTanDModelOrderEps "1"',
+                '.SetElParametricConductivity "False"',
+                '.ReferenceCoordSystem "Global"',
+                '.CoordSystemType "Cartesian"',
+                '.SigmaM "0"',
+                '.TanDM "0.0"',
+                '.TanDMFreq "0.0"',
+                '.TanDMGiven "False"',
+                '.TanDMModel "ConstTanD"',
+                '.EnableUserConstTanDModelOrderMu "False"',
+                '.ConstTanDModelOrderMu "1"',
+                '.SetMagParametricConductivity "False"',
+                '.DispModelEps "None"',
+                '.DispModelMu "None"',
+                '.DispersiveFittingSchemeEps "Nth Order"',
+                '.MaximalOrderNthModelFitEps "10"',
+                '.ErrorLimitNthModelFitEps "0.1"',
+                '.UseOnlyDataInSimFreqRangeNthModelEps "False"',
+                '.DispersiveFittingSchemeMu "Nth Order"',
+                '.MaximalOrderNthModelFitMu "10"',
+                '.ErrorLimitNthModelFitMu "0.1"',
+                '.UseOnlyDataInSimFreqRangeNthModelMu "False"',
+                '.UseGeneralDispersionEps "False"',
+                '.UseGeneralDispersionMu "False"',
+                '.NLAnisotropy "False"',
+                '.NLAStackingFactor "1"',
+                '.NLADirectionX "1"',
+                '.NLADirectionY "0"',
+                '.NLADirectionZ "0"',
+                '.Colour "0", "0.501961", "1"',
+                '.Wireframe "False"',
+                '.Reflection "False"',
+                '.Allowoutline "True"',
+                '.Transparentoutline "False"',
+                '.Transparency "0"',
+                '.Create',
+                'End With']
+    sCommand = line_break.join(sCommand)
+    modeler.add_to_history('create material1', sCommand)
 
     # 建模开始
-
     # 介质层
     sCommand = ['With Brick',
                 '.Reset',
                 '.Name "%s"' % 'solid1',
                 '.Component "%s"' % 'component1',
-                '.Material "%s"' % 'FR-4 (lossy)',
+                '.Material "%s"' % 'medium',
                 f'.Xrange "-p/2", "p/2"',
                 f'.Yrange "-p/2", "p/2"',
                 f'.Zrange "0", "h"',
@@ -156,8 +235,8 @@ for i in range(1):
 
     # 金属层
     # 随机生成矩阵并用文档进行存储
-    arr = get_0_1_array(np.eye(int(p / 2)), rate=0.5)
-    # print(arr)
+    rate = '%.1f' % (random.randint(3, 7) * 0.1)  # 0所占数组的比重
+    arr = get_0_1_array(np.eye(int(p / 2)), rate=float(rate))
     f = open(rf'C:\Users\Dell\Desktop\arr_data\{count}-matrix.txt', 'a')
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
@@ -236,40 +315,27 @@ for i in range(1):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:rotate', sCommand)
 
-    # # 仿真开始
-    # modeler.run_solver()
-    # # 仿真结束
+    # 仿真开始
+    modeler.run_solver()
+    # 仿真结束
 
     # # 保存
     # mws.save(fullname)
 
-    # # 导出linear数据
-    # sCommmd = ['SelectTreeItem("1D Results\S-Parameters\SZmax(1),Zmax(1)")',
-    #            'With Plot1D',
-    #            '.PlotView "magnitude"',
-    #            'End With',
-    #            'With ASCIIExport',
-    #            '.Reset',
-    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
-    #            '.Execute',
-    #            'End With']
-    # sCommmd = '\n'.join(sCommmd)
-    # modeler.add_to_history('save data', sCommmd)
+    # 导出phase数据
+    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
+               'With Plot1D',
+               '.PlotView "phase"',
+               'End With',
+               'With ASCIIExport',
+               '.Reset',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
+               '.Execute',
+               'End With']
+    sCommmd = '\n'.join(sCommmd)
+    modeler.add_to_history('save data', sCommmd)
 
-    # # 导出dB数据
-    # sCommmd = ['SelectTreeItem("1D Results\S-Parameters\SZmax(1),Zmax(1)")',
-    #            'With Plot1D',
-    #            '.PlotView "magnitudedb"',
-    #            'End With',
-    #            'With ASCIIExport',
-    #            '.Reset',
-    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
-    #            '.Execute',
-    #            'End With']
-    # sCommmd = '\n'.join(sCommmd)
-    # modeler.add_to_history('save data', sCommmd)
-
-    # # 删除component
-    # sCommand = 'Component.Delete "component1" '
-    # modeler.add_to_history('delete component', sCommand)
-    # # 删除完成
+    # 删除component
+    sCommand = 'Component.Delete "component1" '
+    modeler.add_to_history('delete component', sCommand)
+    # 删除完成
