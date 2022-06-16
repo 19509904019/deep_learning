@@ -23,11 +23,13 @@ for i in range(1):
     # 模型基本参数
     p = 16  # 周期
     h = 3  # 介质层厚度
+    t = 1  # 金属片长度
     # 在CST中添加模型基本参数
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("theta","0")')
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("phi","0")')
     modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("p","{p}")')
     modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("h","{h}")')
+    modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("t","{t}")')
     # 基本参数设置完成
 
     line_break = '\n'
@@ -111,12 +113,12 @@ for i in range(1):
                 '.TextSize "50"',
                 '.TextMaxLimit "1"',
                 '.Coordinates "Full"',
-                '.Orientation "zmin"',
+                '.Orientation "zmax"',
                 '.PortOnBound "True"',
                 '.ClipPickedPortToBound "False"',
                 '.Xrange "-8", "8"',
                 '.Yrange "-8", "8"',
-                '.Zrange "-7.49481145", "-7.49481145"',
+                '.Zrange "10.51281145", "10.51281145"',
                 '.XrangeAdd "0.0", "0.0"',
                 '.YrangeAdd "0.0", "0.0"',
                 '.ZrangeAdd "0.0", "0.0"',
@@ -221,12 +223,26 @@ for i in range(1):
     # 介质层
     sCommand = ['With Brick',
                 '.Reset',
-                '.Name "%s"' % 'solid1',
+                '.Name "%s"' % 'middle_layer',
                 '.Component "%s"' % 'component1',
                 '.Material "%s"' % 'medium',
                 f'.Xrange "-p/2", "p/2"',
                 f'.Yrange "-p/2", "p/2"',
                 f'.Zrange "0", "h"',
+                '.Create',
+                'End With']
+    sCommand = line_break.join(sCommand)
+    modeler.add_to_history('define brick', sCommand)
+
+    # 金属背板
+    sCommand = ['With Brick',
+                '.Reset',
+                '.Name "%s"' % 'bottom_layer',
+                '.Component "%s"' % 'component1',
+                '.Material "%s"' % 'Copper (annealed)',
+                f'.Xrange "-p/2", "p/2"',
+                f'.Yrange "-p/2", "p/2"',
+                f'.Zrange "-0.018", "0"',
                 '.Create',
                 'End With']
     sCommand = line_break.join(sCommand)
@@ -252,8 +268,8 @@ for i in range(1):
                             '.Name "metal_%.0f_%.0f"' % (y + 1, x + 1),
                             '.Component "component1"',
                             '.Material "Copper (annealed)"',
-                            '.Xrange "%d","%d"' % (x - (p / 2), x - (p / 2) + 1),
-                            '.Yrange "%d","%d"' % ((p / 2) - (y + 1), (p / 2) - y),
+                            '.Xrange "%d","%d"' % (x - (p / 2), x - (p / 2) + t),
+                            '.Yrange "%d","%d"' % ((p / 2) - (y + t), (p / 2) - y),
                             '.Zrange "h","h+0.018"',
                             '.Create',
                             'End With']
@@ -314,26 +330,39 @@ for i in range(1):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:rotate', sCommand)
 
-    # # 仿真开始
-    # modeler.run_solver()
-    # # 仿真结束
-    #
-    # # # 保存
-    # # mws.save(fullname)
-    #
-    # # 导出phase数据
-    # sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
-    #            'With Plot1D',
-    #            '.PlotView "phase"',
-    #            'End With',
-    #            'With ASCIIExport',
-    #            '.Reset',
-    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\{count}-s11.txt',
-    #            '.Execute',
-    #            'End With']
-    # sCommmd = '\n'.join(sCommmd)
-    # modeler.add_to_history('save data', sCommmd)
-    #
+    # 仿真开始
+    modeler.run_solver()
+    # 仿真结束
+
+    # 保存
+    mws.save(fullname)
+
+    # 导出phase数据
+    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
+               'With Plot1D',
+               '.PlotView "phase"',
+               'End With',
+               'With ASCIIExport',
+               '.Reset',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\phase\{count}-phase.txt',
+               '.Execute',
+               'End With']
+    sCommmd = '\n'.join(sCommmd)
+    modeler.add_to_history('save phase', sCommmd)
+
+    # 导出linear数据
+    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
+               'With Plot1D',
+               '.PlotView "magnitude"',
+               'End With',
+               'With ASCIIExport',
+               '.Reset',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\linear\{count}-linear.txt',
+               '.Execute',
+               'End With']
+    sCommmd = '\n'.join(sCommmd)
+    modeler.add_to_history('save linear', sCommmd)
+
     # # 删除component
     # sCommand = 'Component.Delete "component1" '
     # modeler.add_to_history('delete component', sCommand)
