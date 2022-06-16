@@ -55,7 +55,7 @@ for i in range(1):
     modeler.add_to_history('set frequency range', sCommand)
     # 工作频率设置结束
 
-    # 设置背景材料
+    # 设置背景材料:Normal
     sCommand = ['With Background',
                 '.Type "Normal"',
                 '.Epsilon "1.0"',
@@ -130,7 +130,6 @@ for i in range(1):
 
     # 计算方式设置
     sCommand = ['Mesh.SetCreator "High Frequency"',
-
                 'With Solver ',
                 '.Method "Hexahedral"',
                 '.CalculationType "TD-S"',
