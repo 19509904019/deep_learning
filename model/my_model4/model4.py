@@ -13,12 +13,12 @@ modeler = mws.modeler
 
 # 存储数据量
 count = 0
-for i in range(1):
+for i in range(50):
     count += 1
-    # 文件存储路径
-    path = r'C:\Users\Dell\Desktop\simulation'
-    fullname = os.path.join(path, f'{count}.cst')
-    mws.save(fullname)
+    # # 文件存储路径
+    # path = r'C:\Users\Dell\Desktop\simulation'
+    # fullname = os.path.join(path, f'{count}.cst')
+    # mws.save(fullname)
 
     # 模型基本参数
     p = 16  # 周期
@@ -334,8 +334,8 @@ for i in range(1):
     modeler.run_solver()
     # 仿真结束
 
-    # 保存
-    mws.save(fullname)
+    # # 保存
+    # mws.save(fullname)
 
     # 导出phase数据
     sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
@@ -363,7 +363,7 @@ for i in range(1):
     sCommmd = '\n'.join(sCommmd)
     modeler.add_to_history('save linear', sCommmd)
 
-    # # 删除component
-    # sCommand = 'Component.Delete "component1" '
-    # modeler.add_to_history('delete component', sCommand)
-    # # 删除完成
+    # 删除component
+    sCommand = 'Component.Delete "component1" '
+    modeler.add_to_history('delete component', sCommand)
+    # 删除完成
