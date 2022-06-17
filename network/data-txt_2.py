@@ -4,6 +4,7 @@ import os
 filepath = r'C:\Users\Dell\Desktop\s11_data\phase'
 # 打开文件夹
 filename = os.listdir(filepath)
+filename.sort(key=lambda x: int(x[:-10]))
 # 读取文件
 count = 0
 for file in filename:
@@ -15,7 +16,7 @@ for file in filename:
         # 按行读取全部内容
         lines = f.readlines()
         for i in range(0, len(lines)):
-            new_lines = lines[2:1003]
+            new_lines = lines[2:1002]
 
         # 分别截取频率和相位
         container1 = []  # 相位
@@ -30,14 +31,14 @@ for file in filename:
         # 对相位数据进行unwrap处理
         flag = 0  # 统计跳变次数
         for i in range(1, len(container1)):
-            if container1[i] - container1[i - 1] > 350:
+            if container1[i] - container1[i - 1] > 180:
                 flag += 1
 
         # 跳变几次则循环几次
         for number in range(flag):
             n = 0
             while True:
-                if container1[n + 1] - container1[n] > 350:
+                if (container1[n + 1] - container1[n]) > 180:
                     for i in range(n + 1, len(container1)):
                         container1[i] = container1[i] - 360
                     break
