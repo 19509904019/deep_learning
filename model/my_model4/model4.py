@@ -21,9 +21,9 @@ for i in range(100):
     # mws.save(fullname)
 
     # 模型基本参数
-    p = 16  # 周期
-    h = 3  # 介质层厚度
-    t = 1  # 金属片长度
+    p = 8  # 周期
+    h = 2  # 介质层厚度
+    t = 0.5  # 金属片长度
     # 在CST中添加模型基本参数
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("theta","0")')
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("phi","0")')
@@ -150,7 +150,7 @@ for i in range(100):
     modeler.add_to_history('set excitation', sCommand)
     # 设置完成
 
-    # 定义中间介质  2.2+0.001
+    # 定义中间介质
     sCommand = ['With Material',
                 '.Reset',
                 '.Name "medium"',
@@ -171,10 +171,10 @@ for i in range(100):
                 '.MaterialUnit "Geometry", "mm"',
                 '.MaterialUnit "Time", "s"',
                 '.MaterialUnit "Temperature", "Kelvin"',
-                '.Epsilon "2.2"',
+                '.Epsilon "4.3"',
                 '.Mu "1"',
                 '.Sigma "0"',
-                '.TanD "0.001"',
+                '.TanD "0.0035"',
                 '.TanDFreq "0.0"',
                 '.TanDGiven "True"',
                 '.TanDModel "ConstTanD"',
@@ -251,25 +251,26 @@ for i in range(100):
     # 金属层
     # 随机生成矩阵并用文档进行存储
     rate = '%.1f' % (random.randint(3, 7) * 0.1)  # 0所占数组的比重
-    arr = get_0_1_array(np.eye(int(p / 2)), rate=float(rate))
-    f = open(rf'C:\Users\Dell\Desktop\arr_data\{count}-matrix.txt', 'a')
-    for i in range(arr.shape[0]):
-        for j in range(arr.shape[1]):
-            f.write(str(arr[i][j]) + '\n')
-    f.close()
+    arr = get_0_1_array(np.eye(8), rate=float(rate))
+    # print(arr)
+    # f = open(rf'C:\Users\Dell\Desktop\arr_data\{count}-matrix.txt', 'a')
+    # for i in range(arr.shape[0]):
+    #     for j in range(arr.shape[1]):
+    #         f.write(str(arr[i][j]) + '\n')
+    # f.close()
 
     # 利用随机矩阵进行金属片建模
-    for y in np.arange(arr.shape[0]):
-        for x in np.arange(arr.shape[1]):
+    for x in range(arr.shape[0]):
+        for y in range(arr.shape[1]):
             if arr[x][y] == 1:
                 # 创建金属单元
                 sCommand = ['With Brick',
                             '.Reset',
-                            '.Name "metal_%.0f_%.0f"' % (y + 1, x + 1),
+                            '.Name "metal_%.0f_%.0f"' % (x + 1, y + 1),
                             '.Component "component1"',
                             '.Material "Copper (annealed)"',
-                            '.Xrange "%d","%d"' % (x - (p / 2), x - (p / 2) + t),
-                            '.Yrange "%d","%d"' % ((p / 2) - (y + t), (p / 2) - y),
+                            '.Xrange "%f","%f"' % (y * 0.5 - (p / 2), y * 0.5 - (p / 2) + t),
+                            '.Yrange "%f","%f"' % ((p / 2) - (x * 0.5 + t), (p / 2) - x * 0.5),
                             '.Zrange "h","h+0.018"',
                             '.Create',
                             'End With']
@@ -279,7 +280,7 @@ for i in range(100):
                 # 镜像操作 以x平面为轴
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.PlaneNormal "1", "0", "0"',
@@ -297,7 +298,7 @@ for i in range(100):
                 # 镜像操作 以y平面为轴
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.PlaneNormal "0", "1", "0"',
@@ -315,7 +316,7 @@ for i in range(100):
                 # 旋转操作
                 sCommand = ['With Transform',
                             '.Reset',
-                            '.Name "component1:metal_%.0f_%.0f"' % (y + 1, x + 1),
+                            '.Name "component1:metal_%.0f_%.0f"' % (x + 1, y + 1),
                             '.Origin "Free"',
                             '.Center "0", "0", "0"',
                             '.Angle "0", "0", "180"',

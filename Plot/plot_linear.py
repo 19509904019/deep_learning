@@ -36,5 +36,5 @@ for file in linearName:
     # 清空数组
     linear.clear()
 
-plt.rcParams['figure.figsize']=(20, 14)
+plt.rcParams['figure.figsize']=(20, 15)
 plt.show()
