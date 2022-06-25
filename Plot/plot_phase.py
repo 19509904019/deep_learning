@@ -36,4 +36,5 @@ for file in phaseName:
     # 清空数组
     phase.clear()
 
+plt.rcParams['figure.figsize']=(20, 15)
 plt.show()

@@ -22,7 +22,7 @@ for i in range(100):
 
     # 模型基本参数
     p = 8  # 周期
-    h = 2  # 介质层厚度
+    h = 3  # 介质层厚度
     t = 0.5  # 金属片长度
     # 在CST中添加模型基本参数
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("theta","0")')
