@@ -13,7 +13,7 @@ modeler = mws.modeler
 
 # 存储数据量
 count = 0
-for i in range(100):
+for i in range(500):
     count += 1
     # # 文件存储路径
     # path = r'C:\Users\Dell\Desktop\simulation'
@@ -22,7 +22,7 @@ for i in range(100):
 
     # 模型基本参数
     p = 8  # 周期
-    h = 3  # 介质层厚度
+    h = 2  # 介质层厚度
     t = 0.5  # 金属片长度
     # 在CST中添加模型基本参数
     modeler.add_to_history('StoreParameter', 'MakeSureParameterExists("theta","0")')
