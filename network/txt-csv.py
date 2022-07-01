@@ -2,10 +2,14 @@ import pandas as pd
 import os
 
 # 文件路径
-path = r'C:\Users\Dell\Desktop\data\data2'
+path = r'C:\Users\12414\Desktop\matrix\6'
+# 打开文件夹
+filename = os.listdir(path)
+# 按顺序排列
+filename.sort(key=lambda x: int(x[:-11]))
 
 df1 = []
-for i in os.listdir(path):
+for i in filename:
     # 重构文件路径
     filepath = os.path.join(path, i)
     # 将txt转换成DataFrame
@@ -18,5 +22,5 @@ for i in os.listdir(path):
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\Dell\Desktop\new_dB.csv'
+new_path = r'C:\Users\12414\Desktop\matrix6.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')

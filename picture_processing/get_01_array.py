@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 
-def get_0_1_array(array, rate=random.randint(3, 7) * 0.1):
+def get_0_1_array(array, rate=random.randint(4, 6) * 0.1):
     """按照数组模板生成对应的0-1矩阵，rate采用随机的方式"""
     zeros_num = int(array.size * rate)  # 根据0的比率来得到0的个数
     new_array = np.ones(array.size)  # 生成与原来模板相同的矩阵，全为1
