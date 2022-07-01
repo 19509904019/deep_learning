@@ -12,8 +12,8 @@ mws = cst.new_mws()
 modeler = mws.modeler
 
 # 存储数据量
-count = 0
-for i in range(500):
+count = 307
+for i in range(200):
     count += 1
     # # 文件存储路径
     # path = r'C:\Users\Dell\Desktop\simulation'

@@ -5,7 +5,7 @@ import numpy as np
 
 # 建模矩阵
 arr = []
-with open(r"C:\Users\12414\Desktop\matrix\matrix1.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\matrix\matrix1.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # 将文本转换为浮点数
     for row in reader:  # 每行存储为一个列表
         arr.append(row)
@@ -52,7 +52,7 @@ modeler.add_to_history('set units', sCommand)
 
 
 # 设置工作频率
-frq1 = 5
+frq1 = 8
 frq2 = 13
 sCommand = 'Solver.FrequencyRange "%f", "%f"' % (frq1, frq2)
 modeler.add_to_history('set frequency range', sCommand)
@@ -228,7 +228,7 @@ modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
 count = 0  # 文件存储序号
-for i in range(2):
+for i in range(len(arr)):
     count += 1
     # # 文件存储
     # path = r'C:\Users\Dell\Desktop\simulation'
@@ -265,7 +265,7 @@ for i in range(2):
 
     # 将列表转为矩阵
     a = np.asarray(arr[i]).reshape(8, -1)
-    print(a)
+    # print(a)
     # 表面金属建模
     for x in range(a.shape[0]):
         for y in range(a.shape[1]):
@@ -352,7 +352,7 @@ for i in range(2):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\phase\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\phase\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
@@ -365,7 +365,7 @@ for i in range(2):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\linear\{count}-linear.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data\linear\{count}-linear.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
