@@ -228,7 +228,7 @@ modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
 count = 2054  # 文件存储序号
-for i in range(2):
+for i in range(len(arr)):
     count += 1
     # # 文件存储
     # path = r'C:\Users\Dell\Desktop\simulation'
@@ -265,7 +265,7 @@ for i in range(2):
 
     # 将列表转为矩阵
     a = np.asarray(arr[i]).reshape(8, -1)
-    print(a)
+    # print(a)
     # 表面金属建模
     for x in range(a.shape[0]):
         for y in range(a.shape[1]):
