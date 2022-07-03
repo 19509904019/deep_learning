@@ -12,7 +12,7 @@ mws = cst.new_mws()
 modeler = mws.modeler
 
 # 存储数据量
-count = 307
+count = 0
 for i in range(200):
     count += 1
     # # 文件存储路径
