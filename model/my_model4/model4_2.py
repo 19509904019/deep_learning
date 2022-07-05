@@ -5,7 +5,7 @@ import numpy as np
 
 # 建模矩阵
 arr = []
-with open(r"C:\Users\12414\Desktop\matrix\matrix1.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\matrix\matrix2.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # 将文本转换为浮点数
     for row in reader:  # 每行存储为一个列表
         arr.append(row)
@@ -227,7 +227,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 0  # 文件存储序号
+count = 5000  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
