@@ -227,7 +227,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 5000  # 文件存储序号
+count = 6850  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
@@ -352,7 +352,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\phase\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\2\phase\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
@@ -365,7 +365,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\linear\{count}-linear.txt',
+               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\2\linear\{count}-linear.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
@@ -375,3 +375,20 @@ for i in range(len(arr)):
     sCommand = 'Component.Delete "component1" '
     modeler.add_to_history('delete component', sCommand)
     # 删除完成
+
+    # # 删除表面金属
+    # for x in range(a.shape[0]):
+    #     for y in range(a.shape[1]):
+    #         if a[x][y] == 1:
+    #             sCommand = f'Solid.Delete "component1:metal_{x + 1}_{y + 1}" '
+    #             modeler.add_to_history('delete shape1', sCommand)
+    #             sCommand = f'Solid.Delete "component1:metal_{x + 1}_{y + 1}_1" '
+    #             modeler.add_to_history('delete shape2', sCommand)
+    #             sCommand = f'Solid.Delete "component1:metal_{x + 1}_{y + 1}_2" '
+    #             modeler.add_to_history('delete shape3', sCommand)
+    #             sCommand = f'Solid.Delete "component1:metal_{x + 1}_{y + 1}_3" '
+    #             modeler.add_to_history('delete shape4', sCommand)
+    #             sCommand = f'Solid.Delete "component1:middle_layer" '
+    #             modeler.add_to_history('delete middle_layer', sCommand)
+    #             sCommand = f'Solid.Delete "component1:bottom_layer" '
+    #             modeler.add_to_history('delete bottom_layer', sCommand)
