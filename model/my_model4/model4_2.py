@@ -227,7 +227,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 9094  # 文件存储序号
+count = 9666  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
