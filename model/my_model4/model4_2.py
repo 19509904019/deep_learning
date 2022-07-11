@@ -5,7 +5,7 @@ import numpy as np
 
 # 建模矩阵
 arr = []
-with open(r"C:\Users\12414\Desktop\matrix\matrix2.csv") as csvfile:
+with open(r"C:\Users\12414\Desktop\matrix\matrix5.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # 将文本转换为浮点数
     for row in reader:  # 每行存储为一个列表
         arr.append(row)
@@ -227,7 +227,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 9666  # 文件存储序号
+count = 1080  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
@@ -352,7 +352,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\2\phase\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\5\phase\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
@@ -365,7 +365,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\2\linear\{count}-linear.txt',
+               '.FileName "%s"' % rf'C:\Users\12414\Desktop\s11_data\5\linear\{count}-linear.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
