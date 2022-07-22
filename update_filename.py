@@ -1,11 +1,11 @@
 import os
 
-path = r'C:\Users\12414\Desktop\matrix\6'
+path = r'C:\Users\12414\Desktop\6\phase'
 
 # 获取该目录下所有文件，存入列表中
 fileList = os.listdir(path)
 # 按顺序排列
-fileList.sort(key=lambda x: int(x[:-11]))
+fileList.sort(key=lambda x: int(x[:-10]))
 n = 20000
 for i in fileList:
     n += 1
@@ -13,7 +13,7 @@ for i in fileList:
     oldname = path + os.sep + fileList[n - 20001]  # os.sep添加系统分隔符
 
     # 设置新文件名
-    newname = path + os.sep + f'{n}-matrix' + '.txt'
+    newname = path + os.sep + f'{n}-phase' + '.txt'
 
     os.rename(oldname, newname)  # 用os模块中的rename方法对文件改名
     # print(oldname, '======>', newname)
