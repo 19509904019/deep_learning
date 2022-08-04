@@ -4,7 +4,7 @@
 import os
 import copy
 
-path = r'C:\Users\12414\Desktop\matrix\1'
+path = r'C:\Users\12414\Desktop\matrix\2'
 
 filename = os.listdir(path)
 
