@@ -4,7 +4,7 @@ import numpy as np
 from function import func
 
 # 文件存储路径
-path = r'C:\Users\12414\Desktop\simulation'
+path = r'C:\Users\Dell\Desktop\simulation'
 filename = input("请输入文件名:")
 fullname = os.path.join(path, filename + '.cst')
 

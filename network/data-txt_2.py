@@ -23,13 +23,13 @@ for file in filename:
         container2 = []  # 频率
         for line in new_lines:
             a = line.split()
-            b = float(a[-1])
-            c = float(a[0])
+            b = float(a[-1])  # 相位
+            c = float(a[0])   # 频率
             container1.append(b)  # 相位
             container2.append(c)  # 频率
 
         # 对相位数据进行unwrap处理
-        flag = 0  # 统计跳变次数
+        flag = 0  # 统计相位跳变次数
         for i in range(1, len(container1)):
             if container1[i] - container1[i - 1] > 180:
                 flag += 1
