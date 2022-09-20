@@ -28,7 +28,7 @@ for file in phaseName:
         # print(phase)
 
     # 画图
-    x = np.arange(5, 15, 0.01)
+    x = np.arange(8, 13, 0.005)
     plt.plot(x, phase)
     plt.xlabel("Frequency(GHz)")
     plt.ylabel("Phase(degree)")
