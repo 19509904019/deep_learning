@@ -1,46 +1,23 @@
-# 创建数据集对象
-from torch.utils.data import Dataset, DataLoader
-import csv
+import torch
+import torch.nn as nn
 
 
-class MyDataset(Dataset):  # 需要继承Dataset类
-    def __init__(self, phase, matrix):
-        """
-        将传入的序列指定为类的属性
-        :param phase:
-        :param matrix:
-        """
-        self.phase = phase
-        self.matrix = matrix
+class MyModel(nn.Module):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.model1 = nn.Sequential(
+            nn.Linear(64, 128),
+            nn.ReLU(),
+            nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.Linear(256, 256),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(256, 256),
+            nn.ReLU(),
+            nn.Linear(256, 200)
+        )
 
-    def __len__(self):
-        """
-        设定数据集的长度
-        :return:
-        """
-        return len(self.matrix)
-
-    def __getitem__(self, idx):
-        """
-        使用参数idx,指定索引访问元素的方法，并指定返回元素
-        :param idx:
-        :return:
-        """
-        label = self.matrix[idx]
-        data = self.phase[idx]
-        return data, label
-
-
-# 读取数据源
-with open(r'D:\deep_learning\my_dataset\train\matrix.csv', 'r') as f:
-    reader = csv.reader(f)
-    matrixs = list(reader)
-with open(r'D:\deep_learning\my_dataset\train\phase.csv', 'r') as f:
-    reader = csv.reader(f)
-    phases = list(reader)
-
-# 实例化新的数据集
-my_dataset = MyDataset(phases, matrixs)
-
-# 传入DataLoader
-train_loader = DataLoader(dataset=my_dataset, batch_size=2)
+    def forward(self, x):
+        x = self.model1(x)
+        return x
