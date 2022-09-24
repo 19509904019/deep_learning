@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # 文件路径
-path = r'C:\Users\Dell\Desktop\5'
+path = r'C:\Users\Dell\Desktop\dataset\dataset2\test\phase'
 # 打开文件夹
 filename = os.listdir(path)
 # 按顺序排列
@@ -22,5 +22,5 @@ for i in filename:
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\Dell\Desktop\matrix5.csv'
+new_path = r'C:\Users\Dell\Desktop\phase.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')
