@@ -43,7 +43,7 @@ phases = []
 with open(r'D:\deep_learning\my_dataset\train\matrix.csv', 'r') as f:
     reader = csv.reader(f)
     for i in reader:
-        a = list(map(int, i))
+        a = [j - 0.1 for j in list(map(int, i))]
         matrixs.append(a)
     matrixs = torch.tensor(matrixs, dtype=torch.float)
 with open(r'D:\deep_learning\my_dataset\train\phase.csv', 'r') as f:
@@ -53,10 +53,10 @@ with open(r'D:\deep_learning\my_dataset\train\phase.csv', 'r') as f:
         phases.append(b)
     phases = torch.tensor(phases, dtype=torch.float)
 # 实例化新的数据集
-my_dataset = MyDataset(phases, matrixs)
+train_set = MyDataset(phases, matrixs)
 
 # 传入DataLoader
-train_loader = DataLoader(dataset=my_dataset, batch_size=64)
+train_loader = DataLoader(dataset=train_set, batch_size=32)
 
 # 生成网络
 mymodel = MyModel()
@@ -64,9 +64,8 @@ mymodel = MyModel()
 # 损失函数
 loss_F = nn.MSELoss()
 
-# 优化器
+# 学习率
 lr = 1e-4
-optimizer = Adam(mymodel.parameters(), lr=lr)
 
 # 训练的轮数
 epoch = 20000
@@ -78,8 +77,19 @@ for i in range(epoch):
     # 记录训练轮数
     count += 1
 
-    # 每300轮学习率减半
-    if count % 2000 == 0:
+    # 优化器
+    optimizer = Adam(mymodel.parameters(), lr=lr)
+
+    # 迭代1000次除以2
+    if count == 1000:
+        lr = lr / 2
+
+    # 迭代2000次除以2
+    if count == 2000:
+        lr = lr / 2
+
+    # 迭代3000次除以2
+    if count == 3000:
         lr = lr / 2
 
     print(f'---------第{i + 1}轮---------')
@@ -105,7 +115,6 @@ for i in range(epoch):
         if total_train_step % 10 == 0:
             print(f'训练次数:{total_train_step},loss:{loss.item()}')
     print(f"整体训练集的Loss:{total_train_loss}")
-
 
 # 保存模型
 torch.save(mymodel, 'mymodel.pth')

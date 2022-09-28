@@ -1,3 +1,7 @@
+"""
+正向预测神经网络
+
+"""
 import torch
 import torch.nn as nn
 
@@ -6,16 +10,18 @@ class MyModel(nn.Module):
     def __init__(self):
         super(MyModel, self).__init__()
         self.model1 = nn.Sequential(
-            nn.Linear(64, 128),
+            nn.Linear(64, 256),
             nn.ReLU(),
-            nn.Linear(128, 256),
+            nn.Linear(256, 512),
             nn.ReLU(),
-            nn.Linear(256, 256),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
             nn.ReLU(),
             nn.Dropout(0.1),
-            nn.Linear(256, 256),
+            nn.Linear(512, 512),
             nn.ReLU(),
-            nn.Linear(256, 200)
+            nn.Linear(512, 200)
         )
 
     def forward(self, x):
