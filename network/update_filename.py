@@ -1,6 +1,6 @@
 import os
 
-path = r'C:\Users\Dell\Desktop\dataset\dataset2\test\matrix'
+path = r'C:\Users\Dell\Desktop\dataset\dataset3\val\matrix'
 
 # 获取该目录下所有文件，存入列表中
 fileList = os.listdir(path)

@@ -2,11 +2,11 @@ import pandas as pd
 import os
 
 # 文件路径
-path = r'C:\Users\Dell\Desktop\dataset\dataset2\test\phase'
+path = r'C:\Users\Dell\Desktop\4'
 # 打开文件夹
 filename = os.listdir(path)
 # 按顺序排列
-filename.sort(key=lambda x: int(x[:-10]))
+filename.sort(key=lambda x: int(x[:-11]))
 
 df1 = []
 for i in filename:
@@ -22,5 +22,5 @@ for i in filename:
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\Dell\Desktop\phase.csv'
+new_path = r'C:\Users\Dell\Desktop\matrix2.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')
