@@ -6,7 +6,7 @@ path = r'C:\Users\Dell\Desktop\3'
 # 打开文件夹
 filename = os.listdir(path)
 # 按顺序排列
-filename.sort(key=lambda x: int(x[:-11]))
+filename.sort(key=lambda x: int(x[:-9]))
 
 df1 = []
 for i in filename:
