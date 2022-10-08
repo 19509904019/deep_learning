@@ -2,10 +2,10 @@ import shutil, os
 
 files = []
 
-path = r'C:\Users\Dell\Desktop\data\matrix'
-movepath = r'C:\Users\Dell\Desktop\4'
-for i in range(15001, 30001):
-    a = '%d-matrix.txt' % i
+path = r'C:\Users\Dell\Desktop\shuffle_data\data2'
+movepath = r'C:\Users\Dell\Desktop\2'
+for i in range(20001, 29519):
+    a = '%d-data.txt' % i
     files.append(a)
 
 for file in files:
