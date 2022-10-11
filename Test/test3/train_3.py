@@ -78,8 +78,8 @@ test_set = MyDataset(test_phases, test_matrixs)
 """
 加载数据集
 """
-train_dataloader = DataLoader(dataset=train_set, batch_size=64, shuffle=True)
-test_dataloader = DataLoader(dataset=test_set, batch_size=64, shuffle=False)
+train_dataloader = DataLoader(dataset=train_set, batch_size=512, shuffle=True)
+test_dataloader = DataLoader(dataset=test_set, batch_size=512, shuffle=False)
 
 """
 构建网络
@@ -92,13 +92,13 @@ mymodel = MyModel().to(device)
 loss_F = nn.MSELoss().to(device)
 
 # 优化器
-lr = 1e-3  # 学习率
+lr = 5e-3  # 学习率
 optimizer = Adam(mymodel.parameters(), lr=lr)
 
 # 调整学习率函数
 # y = lambda x: 0.9 ** x
 # scheduler = lr_scheduler.LambdaLR(optimizer=optimizer,lr_lambda=y)
-scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=2000, gamma=0.5)
+scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=1000, gamma=0.5)
 """
 设置训练网络的一些参数
 """
@@ -140,7 +140,8 @@ for i in range(epoch):
         #     print(f'训练次数:{total_train_step},loss:{loss.item()}')
     print(f"整体训练集的Loss:{total_train_loss / 24000}")
     total_train.append(total_train_loss / 24000)
-    scheduler.step()
+    if i < 5000:
+        scheduler.step()
 
     # 整个测试集的loss
     total_test_loss = 0
@@ -156,7 +157,7 @@ for i in range(epoch):
             outputs = mymodel(matrixs).to(device)
             loss = loss_F(outputs, phases).to(device)
             total_test_loss += loss.item()  # 整体测试集的loss
-        print(f"整体测试集的Loss:{total_test_loss / 3000},均方根误差为：{math.sqrt(total_test_loss / 3000)}")
+        print(f"整体测试集的Loss:{total_test_loss / 3000}")
         total_test.append(total_test_loss / 3000)
 
 """
@@ -169,9 +170,9 @@ print("模型保存成功！")
 """
 保存数据画图
 """
-with open(r'C:\Users\user2\Desktop\loss\total_train.txt', 'a') as f:
+with open(r'total_train.txt', 'a') as f:
     for i in total_train:
         f.write(str(i) + '\n')
-with open(r'C:\Users\user2\Desktop\loss\total_test.txt', 'a') as f:
+with open(r'total_test.txt', 'a') as f:
     for j in total_test:
         f.write(str(j) + '\n')
