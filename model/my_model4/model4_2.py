@@ -5,7 +5,7 @@ import numpy as np
 
 # 建模矩阵
 arr = []
-with open(r"C:\Users\Dell\Desktop\matrix\matrix6.csv") as csvfile:
+with open(r"C:\Users\Dell\Desktop\1\1.csv") as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # 将文本转换为浮点数
     for row in reader:  # 每行存储为一个列表
         arr.append(row)
@@ -352,7 +352,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data_2\6\phase\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\2\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
@@ -365,13 +365,13 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\s11_data_2\6\linear\{count}-linear.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\2\{count}-linear.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
     modeler.add_to_history('save linear', sCommmd)
 
-    # 删除component
-    sCommand = 'Component.Delete "component1" '
-    modeler.add_to_history('delete component', sCommand)
-    # 删除完成
+    # # 删除component
+    # sCommand = 'Component.Delete "component1" '
+    # modeler.add_to_history('delete component', sCommand)
+    # # 删除完成

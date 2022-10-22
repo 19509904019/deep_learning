@@ -15,7 +15,7 @@ for file in filename:
     with open(fullpath, 'r') as f:
         # 按行读取全部内容
         lines = f.readlines()
-        new_lines = lines[2:1002]
+        new_lines = lines[2:1003]
 
         # 分别截取频率和相位
         container1 = []  # 相位
