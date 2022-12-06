@@ -2,15 +2,13 @@ import csv
 import cst.interface
 import cst.results
 import numpy as np
+import pandas as pd
 
 # 建模矩阵
-arr = []
-with open(r"C:\Users\Dell\Desktop\1\1.csv") as csvfile:
-    reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)  # 将文本转换为浮点数
-    for row in reader:  # 每行存储为一个列表
-        arr.append(row)
-
-# print(len(arr))  # 5000
+path = r'C:\Users\Dell\Desktop\2.csv'
+arr = pd.read_csv(path, header=None)
+arr = arr.values.tolist()
+# print(arr[0])
 # print(np.asarray(arr[0]).reshape(8, -1))  # 转为矩阵
 
 # 建立仿真环境
@@ -30,8 +28,8 @@ modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("p","{p}")')
 modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("h","{h}")')
 modeler.add_to_history('StoreParameter', f'MakeSureParameterExists("t","{t}")')
 # 基本参数设置完成
-
-
+#
+#
 line_break = '\n'
 # 全局单位初始化
 sCommand = ['With Units',
@@ -227,7 +225,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 0  # 文件存储序号
+count = 4956  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
@@ -346,32 +344,32 @@ for i in range(len(arr)):
     # mws.save(fullname)
 
     # 导出phase数据
-    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
+    sCommmd = [r'SelectTreeItem("1D Results\S-Parameters\S1,1")',
                'With Plot1D',
                '.PlotView "phase"',
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\2\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\phase\2\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)
     modeler.add_to_history('save phase', sCommmd)
 
-    # 导出linear数据
-    sCommmd = ['SelectTreeItem("1D Results\S-Parameters\S1,1")',
-               'With Plot1D',
-               '.PlotView "magnitude"',
-               'End With',
-               'With ASCIIExport',
-               '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\2\{count}-linear.txt',
-               '.Execute',
-               'End With']
-    sCommmd = '\n'.join(sCommmd)
-    modeler.add_to_history('save linear', sCommmd)
+    # # 导出linear数据
+    # sCommmd = [r'SelectTreeItem("1D Results\S-Parameters\S1,1")',
+    #            'With Plot1D',
+    #            '.PlotView "magnitude"',
+    #            'End With',
+    #            'With ASCIIExport',
+    #            '.Reset',
+    #            '.FileName "%s"' % rf'C:\Users\user2\Desktop\3\{count}-linear.txt',
+    #            '.Execute',
+    #            'End With']
+    # sCommmd = '\n'.join(sCommmd)
+    # modeler.add_to_history('save linear', sCommmd)
 
-    # # 删除component
-    # sCommand = 'Component.Delete "component1" '
-    # modeler.add_to_history('delete component', sCommand)
-    # # 删除完成
+    # 删除component
+    sCommand = 'Component.Delete "component1" '
+    modeler.add_to_history('delete component', sCommand)
+    # 删除完成

@@ -1,11 +1,11 @@
 import os
 
-path = r'C:\Users\Dell\Desktop\new_data\phase'
+path = r'C:\Users\Dell\Desktop\data3'
 
 # 获取该目录下所有文件，存入列表中
 fileList = os.listdir(path)
 # 按顺序排列
-fileList.sort(key=lambda x: int(x[:-4]))
+fileList.sort(key=lambda x: int(x[:-9]))
 n = 0
 for i in fileList:
     n += 1

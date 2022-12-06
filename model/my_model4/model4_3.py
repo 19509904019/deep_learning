@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # 建模矩阵
-path = r'C:\Users\Dell\Desktop\1.csv'
+path = r'C:\Users\Dell\Desktop\3.csv'
 arr = pd.read_csv(path, header=None)
 arr = arr.values.tolist()
 # print(arr[0])
@@ -225,7 +225,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 4919  # 文件存储序号
+count = 4889  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
@@ -350,7 +350,7 @@ for i in range(len(arr)):
                'End With',
                'With ASCIIExport',
                '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\phase\1\{count}-phase.txt',
+               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\phase\3\{count}-phase.txt',
                '.Execute',
                'End With']
     sCommmd = '\n'.join(sCommmd)

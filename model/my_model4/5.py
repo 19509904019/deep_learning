@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # 建模矩阵
-path = r'C:\Users\Dell\Desktop\1.csv'
+path = r'C:\Users\Dell\Desktop\5.csv'
 arr = pd.read_csv(path, header=None)
 arr = arr.values.tolist()
 # print(arr[0])
@@ -225,7 +225,7 @@ sCommand = line_break.join(sCommand)
 modeler.add_to_history('create material1', sCommand)
 
 # 建模开始
-count = 4919  # 文件存储序号
+count = 0  # 文件存储序号
 for i in range(len(arr)):
     count += 1
     # # 文件存储
@@ -336,25 +336,25 @@ for i in range(len(arr)):
                 sCommand = line_break.join(sCommand)
                 modeler.add_to_history('transform:rotate', sCommand)
 
-    # 仿真开始
-    modeler.run_solver()
-    # 仿真结束
+    # # 仿真开始
+    # modeler.run_solver()
+    # # 仿真结束
 
     # # 保存
     # mws.save(fullname)
 
-    # 导出phase数据
-    sCommmd = [r'SelectTreeItem("1D Results\S-Parameters\S1,1")',
-               'With Plot1D',
-               '.PlotView "phase"',
-               'End With',
-               'With ASCIIExport',
-               '.Reset',
-               '.FileName "%s"' % rf'C:\Users\Dell\Desktop\phase\1\{count}-phase.txt',
-               '.Execute',
-               'End With']
-    sCommmd = '\n'.join(sCommmd)
-    modeler.add_to_history('save phase', sCommmd)
+    # # 导出phase数据
+    # sCommmd = [r'SelectTreeItem("1D Results\S-Parameters\S1,1")',
+    #            'With Plot1D',
+    #            '.PlotView "phase"',
+    #            'End With',
+    #            'With ASCIIExport',
+    #            '.Reset',
+    #            '.FileName "%s"' % rf'C:\Users\Dell\Desktop\phase\4\{count}-phase.txt',
+    #            '.Execute',
+    #            'End With']
+    # sCommmd = '\n'.join(sCommmd)
+    # modeler.add_to_history('save phase', sCommmd)
 
     # # 导出linear数据
     # sCommmd = [r'SelectTreeItem("1D Results\S-Parameters\S1,1")',
@@ -369,7 +369,7 @@ for i in range(len(arr)):
     # sCommmd = '\n'.join(sCommmd)
     # modeler.add_to_history('save linear', sCommmd)
 
-    # 删除component
-    sCommand = 'Component.Delete "component1" '
-    modeler.add_to_history('delete component', sCommand)
+    # # 删除component
+    # sCommand = 'Component.Delete "component1" '
+    # modeler.add_to_history('delete component', sCommand)
     # 删除完成

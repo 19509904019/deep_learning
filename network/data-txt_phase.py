@@ -1,7 +1,7 @@
 import os
 
 # 文件夹路径
-filepath = r'C:\Users\Dell\Desktop\data\s11_data\phase'
+filepath = r'C:\Users\Dell\Desktop\3'
 # 打开文件夹
 filename = os.listdir(filepath)
 filename.sort(key=lambda x: int(x[:-10]))
@@ -46,7 +46,7 @@ for file in filename:
 
         # 用文件保存
         # 相位
-        with open(r'C:\Users\Dell\Desktop\new_data\phase\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
+        with open(r'C:\Users\Dell\Desktop\3\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
             for line in container1:
                 f.write(str(line) + '\n')
 
