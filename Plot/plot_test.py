@@ -4,7 +4,7 @@ import copy
 
 # 相位数据存储路径
 outputPath = r'C:\Users\Dell\Desktop\output'
-phasePath = r'C:\Users\Dell\Desktop\3'
+phasePath = r'C:\Users\Dell\Desktop\phase'
 frequencyPath = r'C:\Users\Dell\Desktop\data30000\new_data\frequency\frequency.txt'
 
 # 打开文件夹
