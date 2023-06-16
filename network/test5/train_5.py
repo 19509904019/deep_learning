@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import Dataset, DataLoader
-from Test.test5.network_5 import MyModel
+from network.test5.network_5 import MyModel
 import torch.nn as nn
 from torch.optim import *
 import csv
