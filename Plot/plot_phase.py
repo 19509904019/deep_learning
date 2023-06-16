@@ -1,6 +1,5 @@
 import os
 import matplotlib.pyplot as plt
-import numpy as np
 
 # 相位数据存储路径
 phasePath = r'C:\Users\Dell\Desktop\new_data\phase'
@@ -45,5 +44,5 @@ for file in phaseName:
     # 清空数组
     phase.clear()
 
-plt.rcParams['figure.figsize']=(20, 15)
+plt.rcParams['figure.figsize'] = (20, 15)
 plt.show()

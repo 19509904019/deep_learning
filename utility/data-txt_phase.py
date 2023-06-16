@@ -6,7 +6,7 @@ filepath = r'C:\Users\Dell\Desktop\3'
 filename = os.listdir(filepath)
 filename.sort(key=lambda x: int(x[:-10]))
 # 读取文件
-count = 0
+count = 49944
 for file in filename:
     count += 1
     # 文件完整路径
@@ -46,12 +46,12 @@ for file in filename:
 
         # 用文件保存
         # 相位
-        with open(r'C:\Users\Dell\Desktop\3\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
+        with open(r'C:\Users\Dell\Desktop\phase\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
             for line in container1:
                 f.write(str(line) + '\n')
 
         # # 频率
-        # with open(r'C:\Users\Dell\Desktop\new_data\frequency\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
+        # with open(r'C:\Users\Dell\Desktop\frequency\%d.txt' % int(count), 'a') as f:  # 提取后的数据文件
         #     for line in container2:
         #         f.write(str(line) + '\n')
 

@@ -1,6 +1,5 @@
 import os
 import matplotlib.pyplot as plt
-import numpy as np
 
 # 幅度数据存储路径
 linearPath = r'C:\Users\Dell\Desktop\new_data\linear'
@@ -36,5 +35,5 @@ for file in linearName:
     # 清空数组
     linear.clear()
 
-plt.rcParams['figure.figsize']=(20, 15)
+plt.rcParams['figure.figsize'] = (20, 15)
 plt.show()

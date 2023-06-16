@@ -55,22 +55,25 @@
 # for path in container1:
 #     os.remove(path)
 
+
 # """
 # 删除具有小跳变的数据
 # """
 # import os
 #
 # # 文件夹路径
-# filepath = r'C:\Users\Dell\Desktop\data3'
+# filepath = r'C:\Users\Dell\Desktop\preprocessing_data\phase\phase'
+# filepath2 = r'C:\Users\Dell\Desktop\matrix\matrix'
 # # 打开文件夹
 # filename = os.listdir(filepath)
-# filename.sort(key=lambda x: int(x[:-9]))
+# filename.sort(key=lambda x: int(x[:-4]))
 # # 读取文件
 # container = []
 # container1 = []
 # for file in filename:
 #     # 文件完整路径
 #     fullpath = os.path.join(filepath, file)
+#     fullpath2 = os.path.join(filepath2, file)
 #     # 对文件进行截取操作
 #     with open(fullpath, 'r') as f:
 #         # 按行读取全部内容
@@ -85,6 +88,7 @@
 #             if container[number + 1] - container[number] > 0:
 #                 print(file)
 #                 container1.append(fullpath)
+#                 container1.append(fullpath2)
 #                 break
 #
 #         # 清空列表
@@ -102,10 +106,10 @@
 import os
 
 # 文件夹路径
-filepath = r'C:\Users\Dell\Desktop\data_all_51'
+filepath = r'C:\Users\Dell\Desktop\preprocessing_data\linear\linear(45001-50000)'
 # 打开文件夹
 filename = os.listdir(filepath)
-filename.sort(key=lambda x: int(x[:-9]))
+filename.sort(key=lambda x: int(x[:-4]))
 # 读取文件
 container = []
 container1 = []

@@ -2,11 +2,11 @@ import pandas as pd
 import os
 
 # 文件路径
-path = r'C:\Users\Dell\Desktop\4'
+path = r'C:\Users\Dell\Desktop\test\phase'
 # 打开文件夹
 filename = os.listdir(path)
 # 按顺序排列
-filename.sort(key=lambda x: int(x[:-4]))
+filename.sort(key=lambda x: int(x[:-10]))
 
 df1 = []
 for i in filename:
