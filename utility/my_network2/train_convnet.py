@@ -1,5 +1,4 @@
 import csv
-import torch
 from network_convnet import *
 import torch.nn as nn
 from torch.optim import *
