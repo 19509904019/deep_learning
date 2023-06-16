@@ -17,7 +17,7 @@ class MyDataset(Dataset):  # 需要继承Dataset类
         self.phase = phase
         self.matrix = matrix
 
-    def __len__(self):
+    def __len__(self): 
         """
         设定数据集的长度
         :return:
