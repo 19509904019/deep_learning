@@ -2,9 +2,9 @@ import shutil, os
 
 files = []
 
-path = r'C:\Users\Dell\Desktop\data'
-movepath = r'C:\Users\Dell\Desktop\8'
-for i in range(70001, 80001):
+path = r'C:\Users\Dell\Desktop\data1\new_data_2\matrix'
+movepath = r'C:\Users\Dell\Desktop\81'
+for i in range(40001, 50001):
     a = '%d.txt' % i
     files.append(a)
 

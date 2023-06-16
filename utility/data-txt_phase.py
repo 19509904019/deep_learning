@@ -1,7 +1,7 @@
 import os
 
 # 文件夹路径
-filepath = r'C:\Users\Dell\Desktop\3'
+filepath = r'C:\Users\Dell\Desktop\phase1'
 # 打开文件夹
 filename = os.listdir(filepath)
 filename.sort(key=lambda x: int(x[:-10]))
@@ -19,13 +19,13 @@ for file in filename:
 
         # 分别截取频率和相位
         container1 = []  # 相位
-        # container2 = []  # 频率
+        container2 = []  # 频率
         for line in new_lines:
             a = line.split()
             b = float(a[-1])  # 相位
-            # c = float(a[0])   # 频率
+            c = float(a[0])   # 频率
             container1.append(b)  # 相位
-            # container2.append(c)  # 频率
+            container2.append(c)  # 频率
 
         # 对相位数据进行unwrap处理
         flag = 0  # 统计相位跳变次数
@@ -57,4 +57,4 @@ for file in filename:
 
         # 清空列表
         container1.clear()
-        # container2.clear()
+        container2.clear()

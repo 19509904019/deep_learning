@@ -22,5 +22,5 @@ for i in filename:
 df = pd.concat(df1, axis=1)
 # print(df)
 # 保存为csv文件
-new_path = r'C:\Users\Dell\Desktop\4.csv'
+new_path = r'C:\Users\Dell\Desktop\phase11.csv'
 df.to_csv(new_path, index=False, encoding='UTF-8')
