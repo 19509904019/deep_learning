@@ -2,8 +2,8 @@ import os
 import matplotlib.pyplot as plt
 
 # 相位数据存储路径
-phasePath = r'C:\Users\Dell\Desktop\new_data\phase'
-frequencyPath = r'C:\Users\Dell\Desktop\new_data\frequency\frequency.txt'
+phasePath = r'C:\Users\Dell\Desktop\preprocessing_data\phase\phase'
+frequencyPath = r'C:\Users\Dell\Desktop\frequency\frequency.txt'
 
 # 打开文件夹
 phaseName = os.listdir(phasePath)
