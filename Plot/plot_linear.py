@@ -1,6 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 
+
 # 幅度数据存储路径
 linearPath = r'C:\Users\Dell\Desktop\new_data\linear'
 
