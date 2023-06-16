@@ -1,6 +1,5 @@
 import csv
 import torch
-import pandas as pd
 
 # 第一种
 targets = []
