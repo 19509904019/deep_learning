@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import torch
 
 # 幅度数据存储路径
-linearPath = r'C:\Users\Dell\Desktop\new_data\linear'
+linearPath = r'C:\Users\Dell\Desktop\linear'
+frequencyPath = r'C:\Users\Dell\Desktop\frequency\frequency.txt'
 
 # 打开文件夹
 linearName = os.listdir(linearPath)
@@ -13,6 +14,16 @@ linearName.sort(key=lambda x: int(x[:-4]))
 
 # 存放文件内容
 linear = []
+frequency = []
+
+# 频率
+with open(frequencyPath, 'r') as f:
+    # 按行读取全部内容
+    lines = f.readlines()
+    for line in lines:
+        a = line.split()  # 数组
+        a = float(a[0])  # 转化为浮点数
+        frequency.append(a)
 
 # 首先读取相位数据
 for file in linearName:
@@ -28,8 +39,7 @@ for file in linearName:
         # print(phase)
 
     # 画图
-    x = np.arange(8, 13, 0.005)
-    plt.plot(x, linear)
+    plt.plot(frequency, linear)
     plt.xlabel("Frequency(GHz)")
     plt.ylabel("magnitude")
 
